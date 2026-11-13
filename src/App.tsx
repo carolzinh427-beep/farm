@@ -6,6 +6,7 @@ import { HeroSlider } from './components/HeroSlider';
 import { BenefitStrip } from './components/BenefitStrip';
 import { ProductCard } from './components/ProductCard';
 import { ProductCarousel } from './components/ProductCarousel';
+import { CareBannerCarousel } from './components/CareBannerCarousel';
 import { CartDrawer } from './components/CartDrawer';
 import { PrescriptionModal } from './components/PrescriptionModal';
 import { LocationModal } from './components/LocationModal';
@@ -187,6 +188,11 @@ export const App: React.FC = () => {
                 onAddToCart={handleAddToCart}
                 cartItems={cartItems}
               />
+            </div>
+
+            {/* EDITORIAL CAROUSEL: Cuidados que você merece (Exact Drogasil Lifestyle Banners) */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+              <CareBannerCarousel onSelectCategory={setSelectedCategory} />
             </div>
 
             {/* CAROUSEL 3: Dermocosméticos e Cuidados Diários (with ← and → arrows) */}
