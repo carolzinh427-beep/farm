@@ -60,15 +60,15 @@ interface StoryCategoryBubblesProps {
 export const StoryCategoryBubbles: React.FC<StoryCategoryBubblesProps> = ({ onSelectCategory }) => {
   return (
     <div className="w-full pt-3 pb-2 px-2 overflow-x-auto scrollbar-none touch-pan-x" style={{ overscrollBehaviorX: 'contain' }}>
-      <div className="flex items-start justify-between sm:justify-center gap-3 sm:gap-6 min-w-max px-2">
+      <div className="flex items-start justify-between sm:justify-center gap-3.5 sm:gap-6 min-w-max px-2">
         {BUBBLES.map((bubble) => (
           <button
             key={bubble.id}
             onClick={() => onSelectCategory(bubble.category)}
             className="flex flex-col items-center group cursor-pointer focus:outline-none flex-shrink-0"
           >
-            {/* Story Circle with border (Exact Rosário Aesthetic) */}
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-slate-800 p-0.5 bg-white shadow-xs group-hover:scale-105 group-active:scale-95 transition-all duration-200 overflow-hidden flex items-center justify-center">
+            {/* Story Circle with border (Aumentado conforme solicitado) */}
+            <div className="w-[74px] h-[74px] sm:w-[86px] sm:h-[86px] rounded-full border-2 border-slate-800 p-0.5 bg-white shadow-xs group-hover:scale-105 group-active:scale-95 transition-all duration-200 overflow-hidden flex items-center justify-center">
               <div className="w-full h-full rounded-full overflow-hidden bg-slate-50 flex items-center justify-center p-1.5">
                 <img
                   src={bubble.image}
@@ -81,7 +81,7 @@ export const StoryCategoryBubbles: React.FC<StoryCategoryBubblesProps> = ({ onSe
             </div>
 
             {/* Label below circle */}
-            <div className="text-[10px] sm:text-[11px] text-center text-slate-800 font-semibold max-w-[76px] leading-tight mt-1.5">
+            <div className="text-[10px] sm:text-[11px] text-center text-slate-800 font-semibold max-w-[80px] leading-tight mt-1.5">
               <span className="block">{bubble.label}</span>
               <span className="block font-black text-slate-900">{bubble.highlight}</span>
             </div>

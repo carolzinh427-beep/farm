@@ -71,21 +71,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* 1. MOBILE HEADER (DROGARIA ROSÁRIO AESTHETIC ADAPTED TO VIVABEM) */}
       {/* ======================================================== */}
       <div className="lg:hidden w-full">
-        {/* Top Promotional Bar with Red Pill Button */}
-        <div className="bg-gradient-to-r from-[#032314] via-[#053820] to-[#084D2C] text-white px-3 py-1.5 flex items-center justify-between text-[11px]">
-          <span className="font-semibold text-emerald-100 truncate pr-2">
-            Ofertas especiais no WhatsApp e Web
-          </span>
-          <button
-            onClick={() => onSelectCategory('ofertas')}
-            className="bg-red-600 hover:bg-red-700 active:scale-95 text-white font-black text-[10px] px-2.5 py-0.5 rounded-full shrink-0 shadow-xs cursor-pointer"
-          >
-            Confira agora!
-          </button>
-        </div>
-
         {/* Sub-bar: 'Ver cupons' and 'Acompanhar pedido' */}
-        <div className="bg-[#053F24] text-emerald-100 px-4 py-1.5 flex items-center justify-around border-t border-emerald-700/30 text-[11px] font-semibold">
+        <div className="bg-[#053F24] text-emerald-100 px-4 py-1.5 flex items-center justify-around border-b border-emerald-700/30 text-[11px] font-semibold">
           <button
             onClick={() => onSelectCategory('ofertas')}
             className="flex items-center gap-1.5 hover:text-white cursor-pointer"
@@ -103,8 +90,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
         </div>
 
-        {/* Main Brand Green Header Bar (Menu, White Logo, User, Basket) */}
-        <div className="bg-[#064E3B] px-3.5 pt-2.5 pb-3 text-white space-y-2.5">
+        {/* Main Brand Green Header Bar (+3mm vertical, +2mm gap from logo to search, perfectly centered) */}
+        <div className="bg-[#064E3B] px-3.5 pt-4 pb-4 text-white space-y-4">
           <div className="flex items-center justify-between">
             {/* Left anchor: Hamburger Button */}
             <div className="flex items-center w-16">
