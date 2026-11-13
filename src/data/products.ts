@@ -12,7 +12,7 @@ export const PRODUCTS: Product[] = [
     dosage: 'Gotas 20ml',
     rating: 4.9,
     reviewsCount: 342,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=80',
+    image: '/products/dipirona.webp',
     isGeneric: true,
     requiresPrescription: false,
     stockCount: 85,
@@ -29,7 +29,7 @@ export const PRODUCTS: Product[] = [
     dosage: 'Gel Creme 40g',
     rating: 5.0,
     reviewsCount: 512,
-    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&auto=format&fit=crop&q=80',
+    image: '/products/anthelios.webp',
     requiresPrescription: false,
     stockCount: 28,
     tag: 'Verão Capixaba'
@@ -45,7 +45,7 @@ export const PRODUCTS: Product[] = [
     dosage: 'Tubo 30 CPR',
     rating: 4.8,
     reviewsCount: 198,
-    image: 'https://images.unsplash.com/photo-1577401239170-897942555fb3?w=500&auto=format&fit=crop&q=80',
+    image: '/products/redoxon.webp',
     requiresPrescription: false,
     stockCount: 42,
     tag: 'Imunidade'
@@ -61,7 +61,7 @@ export const PRODUCTS: Product[] = [
     dosage: 'Pacote Econômico',
     rating: 4.9,
     reviewsCount: 620,
-    image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80',
+    image: '/products/pampers.webp',
     requiresPrescription: false,
     stockCount: 35,
     tag: 'Leve Mais Por Menos'
@@ -77,7 +77,7 @@ export const PRODUCTS: Product[] = [
     dosage: 'Cartela 36 Comprimidos',
     rating: 4.9,
     reviewsCount: 430,
-    image: 'https://images.unsplash.com/photo-1550572017-ed200f5e5a43?w=500&auto=format&fit=crop&q=80',
+    image: '/products/dorflex.webp',
     requiresPrescription: false,
     stockCount: 110,
     tag: 'Alívio Rápido'
@@ -93,7 +93,7 @@ export const PRODUCTS: Product[] = [
     dosage: 'Frasco Pump 473ml',
     rating: 5.0,
     reviewsCount: 789,
-    image: 'https://images.unsplash.com/photo-1608248597359-002d287bc12e?w=500&auto=format&fit=crop&q=80',
+    image: '/products/cerave.webp',
     requiresPrescription: false,
     stockCount: 19,
     tag: 'Dermatológico'
@@ -109,7 +109,7 @@ export const PRODUCTS: Product[] = [
     dosage: '14 Comprimidos Revestidos',
     rating: 4.7,
     reviewsCount: 156,
-    image: 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=500&auto=format&fit=crop&q=80',
+    image: '/products/amoxicilina.webp',
     isGeneric: true,
     requiresPrescription: true,
     stockCount: 50,
@@ -126,7 +126,7 @@ export const PRODUCTS: Product[] = [
     dosage: 'Frasco 500ml',
     rating: 4.8,
     reviewsCount: 275,
-    image: 'https://images.unsplash.com/photo-1559599101-f09722fb4948?w=500&auto=format&fit=crop&q=80',
+    image: '/products/listerine.webp',
     requiresPrescription: false,
     stockCount: 65,
     tag: 'Promoção'
@@ -142,7 +142,7 @@ export const PRODUCTS: Product[] = [
     dosage: '120 Cápsulas Softgel',
     rating: 4.9,
     reviewsCount: 310,
-    image: 'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=500&auto=format&fit=crop&q=80',
+    image: '/products/omega3.webp',
     requiresPrescription: false,
     stockCount: 22,
     tag: 'Coração Saudável'
@@ -158,7 +158,7 @@ export const PRODUCTS: Product[] = [
     dosage: 'Caixa com 30 Drágeas',
     rating: 4.9,
     reviewsCount: 450,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=80',
+    image: '/products/neosaldina.webp',
     requiresPrescription: false,
     stockCount: 90,
     tag: 'Dores de Cabeça'
@@ -174,7 +174,7 @@ export const PRODUCTS: Product[] = [
     dosage: 'Refil Econômico 300g',
     rating: 5.0,
     reviewsCount: 480,
-    image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&auto=format&fit=crop&q=80',
+    image: '/products/effaclar.webp',
     requiresPrescription: false,
     stockCount: 31,
     tag: 'Anti-oleosidade'
@@ -190,7 +190,7 @@ export const PRODUCTS: Product[] = [
     dosage: 'Lata 800g',
     rating: 4.9,
     reviewsCount: 215,
-    image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=500&auto=format&fit=crop&q=80',
+    image: '/products/nan.webp',
     requiresPrescription: false,
     stockCount: 40,
     tag: 'Nutrição Infantil'
@@ -204,4 +204,3 @@ export const ES_CITIES = [
   { city: 'Cariacica', neighborhoods: ['Campo Grande', 'Jardim América', 'Itacibá', 'Alto Lage'], deliveryTime: 'Até 90 min', fee: 7.90 },
   { city: 'Guarapari', neighborhoods: ['Praia do Morro', 'Centro', 'Meaípe', 'Muquiçaba'], deliveryTime: 'Hoje até 18h', fee: 12.00 }
 ];
-
