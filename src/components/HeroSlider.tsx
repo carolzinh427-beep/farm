@@ -135,98 +135,96 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
 
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-4 pt-2 sm:pt-3 w-full">
-      {/* 8-Part Hero Slider (Compact & Fixed Dimensions for ALL Slides) */}
+      {/* 8-Part Hero Slider: Background Image + High-Contrast Gradient Overlay (Identical Dimensions) */}
       <div 
-        className={`relative overflow-hidden rounded-xl sm:rounded-2xl shadow-sm transition-all duration-700 ${
+        className={`relative overflow-hidden rounded-xl sm:rounded-2xl shadow-sm transition-all duration-700 border border-slate-200/20 ${
           slide.isBlackFriday 
-            ? 'bg-black text-white border border-red-600/40' 
-            : 'bg-gradient-to-r from-emerald-800 via-teal-900 to-slate-900 text-white'
+            ? 'bg-black text-white' 
+            : 'bg-[#032314] text-white'
         }`}
       >
-        {/* Ambient Red & Green Accents for Black Friday (Performant CSS radial gradient, zero GPU blur) */}
+        {/* Full Slide Background Image (Removed from the right side, now full background of the session) */}
+        <img
+          key={slide.id}
+          src={slide.image}
+          alt={slide.title}
+          className="absolute inset-0 w-full h-full object-cover object-right md:object-center select-none pointer-events-none transition-opacity duration-700 animate-in fade-in"
+          loading="eager"
+          decoding="async"
+        />
+
+        {/* Gradient Overlay for 100% Typography Readability */}
+        <div
+          className={`absolute inset-0 pointer-events-none transition-all duration-700 ${
+            slide.isBlackFriday
+              ? 'bg-gradient-to-r from-black via-zinc-950/90 md:via-zinc-950/80 to-black/35'
+              : 'bg-gradient-to-r from-[#032314] via-[#053820]/90 md:via-[#053820]/80 to-[#032314]/30'
+          }`}
+        />
+
+        {/* Ambient Glow for Black Friday */}
         {slide.isBlackFriday && (
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(220,38,38,0.25)_0%,transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(16,185,129,0.2)_0%,transparent_60%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(220,38,38,0.25)_0%,transparent_60%)] pointer-events-none" />
         )}
 
-        {/* Compact Grid: items-center with strictly uniform vertical height */}
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 items-center p-3.5 sm:p-5 lg:p-6 min-h-[170px] sm:min-h-[190px] md:min-h-[220px] gap-3 sm:gap-4">
-          {/* Left Text Column */}
-          <div className="md:col-span-7 space-y-1.5 sm:space-y-2">
-            <div className="flex items-center gap-1.5 mb-0.5">
-              <span className={`font-black text-[9px] sm:text-[10px] px-2 py-0.5 rounded tracking-widest uppercase ${slide.badgeClass}`}>
-                {slide.badge}
-              </span>
-              <span className="text-emerald-400 font-black text-[10px] sm:text-xs tracking-wider uppercase">
-                {slide.highlight}
-              </span>
-            </div>
-
-            <h1 className="text-lg sm:text-2xl lg:text-3xl font-black tracking-tight leading-snug">
-              {slide.isBlackFriday ? (
-                <>
-                  <span className="text-white">BLACK FRIDAY: </span>
-                  <span className="text-red-500">60% </span>
-                  <span className="text-emerald-400">OFF</span>
-                </>
-              ) : (
-                slide.title
-              )}
-            </h1>
-
-            <p className="text-slate-200 text-xs sm:text-sm font-normal line-clamp-2 leading-relaxed max-w-lg">
-              {slide.subtitle}
-            </p>
-
-            <div className="pt-1 flex items-center gap-2">
-              <button
-                onClick={() => {
-                  if (slide.actionCategory === 'prescription') {
-                    onOpenPrescription();
-                  } else {
-                    onSelectCategory(slide.actionCategory);
-                  }
-                }}
-                className={`font-black text-[11px] sm:text-xs px-3.5 py-1.5 sm:py-2 rounded-lg shadow-sm transition-all flex items-center gap-1.5 cursor-pointer ${
-                  slide.isBlackFriday
-                    ? 'bg-red-600 hover:bg-red-700 text-white active:scale-95'
-                    : 'bg-white hover:bg-slate-100 text-red-700 active:scale-95'
-                }`}
-              >
-                <span>{slide.actionText}</span>
-              </button>
-
-              <button
-                onClick={onOpenPrescription}
-                className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-[11px] sm:text-xs px-3 py-1.5 sm:py-2 rounded-lg border border-emerald-500/30 transition-all flex items-center gap-1 cursor-pointer"
-              >
-                <FileText className="w-3.5 h-3.5" />
-                <span>Receita</span>
-              </button>
-            </div>
+        {/* Slide Content Area (Left aligned, roomy, consistent height) */}
+        <div className="relative z-10 flex flex-col justify-center p-4 sm:p-6 lg:p-8 min-h-[170px] sm:min-h-[195px] md:min-h-[225px] max-w-xl md:max-w-2xl">
+          <div className="flex items-center gap-1.5 mb-1 sm:mb-1.5 flex-wrap">
+            <span className={`font-black text-[9px] sm:text-[10px] px-2 py-0.5 rounded tracking-widest uppercase ${slide.badgeClass}`}>
+              {slide.badge}
+            </span>
+            <span className="text-emerald-300 font-black text-[10px] sm:text-xs tracking-wider uppercase drop-shadow-xs">
+              {slide.highlight}
+            </span>
           </div>
 
-          {/* Right Visual Box Column (EXACT STRICT IDENTICAL SIZE ACROSS ALL 8 SLIDES) */}
-          <div className="hidden md:flex md:col-span-5 items-center justify-center flex-shrink-0">
-            <div className="relative w-[320px] lg:w-[350px] h-[160px] lg:h-[175px] rounded-xl overflow-hidden shadow-md border border-white/20 flex-shrink-0 bg-slate-900">
-              <img 
-                src={slide.image} 
-                alt={slide.title}
-                className="w-full h-full object-cover object-center block"
-                loading="eager"
-                decoding="async"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-2 left-2 right-2 z-10">
-                <div className="rounded-lg p-1.5 sm:p-2 w-full shadow-xs flex items-center justify-between border bg-zinc-950/90 text-white border-white/10">
-                  <div>
-                    <div className="text-[10px] font-black text-red-400 uppercase tracking-wider leading-none">{slide.statText}</div>
-                    <div className="text-[10px] font-semibold text-emerald-400 leading-tight mt-0.5">{slide.statSub}</div>
-                  </div>
-                  <div className="w-6 h-6 rounded bg-emerald-600/20 text-emerald-400 flex items-center justify-center flex-shrink-0">
-                    <Truck className="w-3 h-3" />
-                  </div>
-                </div>
-              </div>
+          <h1 className="text-lg sm:text-2xl lg:text-3xl font-black tracking-tight leading-snug drop-shadow-xs">
+            {slide.isBlackFriday ? (
+              <>
+                <span className="text-white">BLACK FRIDAY: </span>
+                <span className="text-red-500">60% </span>
+                <span className="text-emerald-400">OFF</span>
+              </>
+            ) : (
+              slide.title
+            )}
+          </h1>
+
+          <p className="text-slate-100 text-xs sm:text-sm font-normal line-clamp-2 leading-relaxed max-w-lg mt-1 drop-shadow-xs">
+            {slide.subtitle}
+          </p>
+
+          <div className="pt-2 sm:pt-2.5 flex items-center gap-2 flex-wrap">
+            <button
+              onClick={() => {
+                if (slide.actionCategory === 'prescription') {
+                  onOpenPrescription();
+                } else {
+                  onSelectCategory(slide.actionCategory);
+                }
+              }}
+              className={`font-black text-[11px] sm:text-xs px-3.5 py-1.5 sm:py-2 rounded-lg shadow-md transition-all flex items-center gap-1.5 cursor-pointer ${
+                slide.isBlackFriday
+                  ? 'bg-red-600 hover:bg-red-700 text-white active:scale-95'
+                  : 'bg-white hover:bg-slate-100 text-red-700 active:scale-95'
+              }`}
+            >
+              <span>{slide.actionText}</span>
+            </button>
+
+            <button
+              onClick={onOpenPrescription}
+              className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-[11px] sm:text-xs px-3 py-1.5 sm:py-2 rounded-lg border border-emerald-500/40 transition-all flex items-center gap-1 cursor-pointer shadow-xs"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>Receita</span>
+            </button>
+
+            {/* Quick Stat Badge */}
+            <div className="hidden sm:inline-flex items-center gap-1.5 bg-black/40 backdrop-blur-xs text-white/90 text-[10px] px-2.5 py-1 rounded-full border border-white/15">
+              <Truck className="w-3 h-3 text-emerald-400" />
+              <span className="font-semibold text-emerald-300">{slide.statText}</span>
+              <span className="text-white/60">• {slide.statSub}</span>
             </div>
           </div>
         </div>
