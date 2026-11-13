@@ -138,8 +138,8 @@ export const CareBannerCarousel: React.FC<CareBannerCarouselProps> = ({ onSelect
       {/* Carousel of Cards */}
       <div
         ref={scrollRef}
-        className="flex gap-2.5 sm:gap-4 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory pb-2 w-full touch-pan-x"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', overscrollBehaviorX: 'contain' }}
+        className="flex gap-2.5 sm:gap-4 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory pb-2 w-full touch-pan-y"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {CARE_CATEGORIES.map((item) => (
           <div

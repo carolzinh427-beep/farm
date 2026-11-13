@@ -147,8 +147,8 @@ export const HealthServicesCarousel: React.FC<HealthServicesCarouselProps> = ({ 
       {/* Horizontal Carousel */}
       <div
         ref={scrollRef}
-        className="flex gap-2.5 sm:gap-4 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory pb-2 w-full touch-pan-x"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', overscrollBehaviorX: 'contain' }}
+        className="flex gap-2.5 sm:gap-4 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory pb-2 w-full touch-pan-y"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {HEALTH_SERVICES.map((item) => (
           <div

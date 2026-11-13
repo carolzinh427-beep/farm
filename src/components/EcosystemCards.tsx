@@ -73,10 +73,10 @@ export const EcosystemCards: React.FC<EcosystemCardsProps> = ({
   }));
 
   return (
-    <section className="w-full py-2 sm:py-5">
-      {/* MOBILE VIEW: React Bits <Carousel /> Component with 3D Momentum & Tilt Effect */}
-      <div className="md:hidden w-full flex flex-col items-center py-1">
-        <div className="w-full max-w-sm px-1">
+    <section className="w-full py-2 sm:py-5 flex flex-col items-center justify-center">
+      {/* MOBILE VIEW: React Bits <Carousel /> Centralizado, com imagens escurecidas e texto de alto contraste */}
+      <div className="md:hidden w-full flex flex-col items-center justify-center py-2 text-center">
+        <div className="w-full max-w-sm px-2 flex justify-center">
           <Carousel
             items={mobileCarouselItems}
             baseWidth={320}
@@ -95,40 +95,41 @@ export const EcosystemCards: React.FC<EcosystemCardsProps> = ({
         </div>
       </div>
 
-      {/* DESKTOP VIEW: Clean 4-Column Grid */}
-      <div className="hidden md:grid md:grid-cols-4 gap-4">
+      {/* DESKTOP VIEW: Clean 4-Column Grid Centralizado */}
+      <div className="hidden md:grid md:grid-cols-4 gap-4 w-full">
         {ECOSYSTEM_ITEMS.map((item) => (
           <div
             key={item.id}
-            className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between group"
+            className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-lg transition-all duration-300 flex flex-col justify-between items-center text-center group"
           >
             {/* Top Photo */}
-            <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+            <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
               <img
                 src={item.image}
                 alt={item.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-90"
                 loading="lazy"
                 decoding="async"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
             </div>
 
             {/* Bottom Content Area */}
-            <div className="p-4 lg:p-5 flex-1 flex flex-col justify-between">
-              <div>
-                <h3 className="text-sm lg:text-base font-black text-slate-900 group-hover:text-red-600 transition-colors">
+            <div className="p-4 lg:p-5 flex-1 flex flex-col justify-between items-center text-center w-full">
+              <div className="flex flex-col items-center text-center">
+                <h3 className="text-sm lg:text-base font-black text-slate-900 group-hover:text-red-600 transition-colors text-center">
                   {item.title}
                 </h3>
-                <p className="text-[11px] lg:text-xs text-slate-500 mt-1.5 line-clamp-3 leading-relaxed">
+                <p className="text-[11px] lg:text-xs text-slate-500 mt-1.5 line-clamp-3 leading-relaxed text-center">
                   {item.description}
                 </p>
               </div>
 
               {/* Pill Button 'Conhecer' */}
-              <div className="mt-4">
+              <div className="mt-4 w-full flex justify-center">
                 <button
                   onClick={() => handleClick(item)}
-                  className="w-full py-2 px-4 border border-slate-300 hover:border-slate-900 hover:bg-slate-900 hover:text-white text-slate-800 font-bold text-xs rounded-full transition-all duration-200 text-center cursor-pointer shadow-2xs"
+                  className="w-full max-w-[180px] py-2 px-4 border border-slate-300 hover:border-slate-900 hover:bg-slate-900 hover:text-white text-slate-800 font-bold text-xs rounded-full transition-all duration-200 text-center cursor-pointer shadow-2xs"
                 >
                   {item.buttonText}
                 </button>

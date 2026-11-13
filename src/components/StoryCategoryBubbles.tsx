@@ -59,7 +59,7 @@ interface StoryCategoryBubblesProps {
 
 export const StoryCategoryBubbles: React.FC<StoryCategoryBubblesProps> = ({ onSelectCategory }) => {
   return (
-    <div className="w-full pt-3 pb-2 px-2 overflow-x-auto scrollbar-none touch-pan-x" style={{ overscrollBehaviorX: 'contain' }}>
+    <div className="w-full pt-3 pb-2 px-2 overflow-x-auto scrollbar-none touch-pan-y" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
       <div className="flex items-start justify-between sm:justify-center gap-3.5 sm:gap-6 min-w-max px-2">
         {BUBBLES.map((bubble) => (
           <button

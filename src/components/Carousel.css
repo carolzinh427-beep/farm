@@ -8,6 +8,7 @@
   box-sizing: border-box;
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  touch-action: pan-y;
 }
 
 .carousel-container.has-frame {
@@ -23,6 +24,7 @@
   gap: 12px;
   box-sizing: border-box;
   border-radius: var(--carousel-radius);
+  touch-action: pan-y;
 }
 
 .carousel-container:focus-visible .carousel-stage {
@@ -77,6 +79,7 @@
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   will-change: transform, opacity;
+  touch-action: pan-y;
 }
 
 .carousel-slide:not([data-current]) {
@@ -87,19 +90,21 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  gap: 12px;
   width: 100%;
   height: 100%;
-  padding: calc(20px * var(--carousel-scale, 1));
+  padding: calc(18px * var(--carousel-scale, 1));
   box-sizing: border-box;
   border-radius: var(--carousel-radius);
-  background: var(--carousel-tile);
+  background: #000000;
   box-shadow: var(--carousel-tile-shadow);
   color: var(--carousel-ink);
   overflow: hidden;
   transition: filter 0.25s ease;
+  touch-action: pan-y;
 }
 
 .carousel-card-rim {
@@ -125,15 +130,18 @@
   text-align: center;
 }
 
+/* Imagem escura para alto contraste com as palavras */
 .carousel-image {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: brightness(0.35);
   pointer-events: none;
 }
 
+/* Scrim com gradiente escuro profundo garantindo leitura perfeita */
 .carousel-scrim {
   position: absolute;
   inset: 0;
@@ -141,20 +149,15 @@
   pointer-events: none;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.62) 0%,
-    rgba(0, 0, 0, 0.6) 8%,
-    rgba(0, 0, 0, 0.54) 17%,
-    rgba(0, 0, 0, 0.45) 26%,
-    rgba(0, 0, 0, 0.34) 36%,
-    rgba(0, 0, 0, 0.22) 46%,
-    rgba(0, 0, 0, 0.11) 56%,
-    rgba(0, 0, 0, 0.04) 64%,
-    rgba(0, 0, 0, 0) 72%
+    rgba(0, 0, 0, 0.96) 0%,
+    rgba(0, 0, 0, 0.82) 40%,
+    rgba(0, 0, 0, 0.55) 75%,
+    rgba(0, 0, 0, 0.35) 100%
   );
 }
 
 .carousel-card.is-round .carousel-scrim {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .carousel-icon {
@@ -185,6 +188,11 @@
   position: relative;
   margin-top: auto;
   opacity: var(--carousel-focus, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
 }
 
 .carousel-card.is-round .carousel-text {
@@ -193,16 +201,21 @@
 
 .carousel-title {
   font-size: calc(18px * var(--carousel-scale, 1));
-  font-weight: 600;
+  font-weight: 800;
   line-height: 1.25;
   letter-spacing: -0.01em;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 .carousel-description {
-  margin: 4px 0 0;
-  font-size: calc(14px * var(--carousel-scale, 1));
-  line-height: 1.45;
-  color: var(--carousel-muted);
+  margin: 6px 0 0;
+  font-size: calc(13px * var(--carousel-scale, 1));
+  line-height: 1.4;
+  color: #f1f5f9;
+  text-align: center;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
 .carousel-card.has-image .carousel-title {
@@ -210,7 +223,7 @@
 }
 
 .carousel-card.has-image .carousel-description {
-  color: rgba(255, 255, 255, 0.78);
+  color: #f8fafc;
 }
 
 .carousel-shade {
@@ -369,4 +382,3 @@
     background: var(--carousel-soft);
   }
 }
-

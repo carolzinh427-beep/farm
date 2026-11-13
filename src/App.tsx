@@ -176,7 +176,7 @@ export const App: React.FC = () => {
       )}
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-3 sm:px-4 py-2 sm:py-4 flex-1 w-full max-w-full space-y-4 sm:space-y-6 overflow-hidden sm:overflow-visible">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 py-2 sm:py-4 flex-1 w-full max-w-full space-y-4 sm:space-y-6 overflow-visible">
         {/* If user is browsing home (todos and no search) show Carousels with Drogasil Arrows */}
         {selectedCategory === 'todos' && !searchQuery ? (
           <>

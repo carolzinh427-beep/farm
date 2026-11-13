@@ -120,8 +120,8 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({
       {/* Horizontal Carousel Container: 6 cards on desktop, 3 cards on mobile */}
       <div
         ref={scrollRef}
-        className="flex gap-2 sm:gap-3 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory pb-2 w-full touch-pan-x"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', overscrollBehaviorX: 'contain' }}
+        className="flex gap-2 sm:gap-3 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory pb-2 w-full touch-pan-y"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {products.map((product) => (
           <div
