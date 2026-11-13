@@ -18,7 +18,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
       bgGradient: 'from-red-600 via-rose-700 to-emerald-900',
       actionText: 'Ver Ofertas do Dia',
       actionCategory: 'ofertas',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&auto=format&fit=crop&q=80',
+      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&h=540&fit=crop&crop=center&q=80',
       statText: '1h Entrega Expressa',
       statSub: 'Vitória • Vila Velha • Serra'
     },
@@ -30,7 +30,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
       bgGradient: 'from-emerald-700 via-teal-800 to-slate-900',
       actionText: 'Conferir Dermocosméticos',
       actionCategory: 'dermocosmeticos',
-      image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop&q=80',
+      image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=540&fit=crop&crop=center&q=80',
       statText: 'Leve 2 Pague 1',
       statSub: 'Em protetores selecionados'
     },
@@ -42,7 +42,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
       bgGradient: 'from-red-700 via-red-800 to-emerald-800',
       actionText: 'Enviar Receita Médica',
       actionCategory: 'prescription',
-      image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format&fit=crop&q=80',
+      image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=540&fit=crop&crop=center&q=80',
       statText: '100% Gratuito',
       statSub: 'Direto pelo WhatsApp'
     }
@@ -110,19 +110,20 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
 
           {/* Right Visual / Stat Box Column */}
           <div className="md:col-span-5 flex flex-col items-center justify-center relative">
-            <div className="relative w-full max-w-sm aspect-4/3 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20 group">
+            <div className="relative w-full max-w-[380px] h-[250px] sm:h-[270px] rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20 group flex-shrink-0">
               <img 
                 src={slide.image} 
                 alt={slide.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover object-center block group-hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-3 left-3 right-3 z-10">
                 <div className="bg-white/95 backdrop-blur-md text-slate-900 rounded-xl p-3 w-full shadow-md flex items-center justify-between">
                   <div>
                     <div className="text-xs font-extrabold text-red-600 uppercase tracking-wider">{slide.statText}</div>
                     <div className="text-[11px] font-semibold text-slate-600">{slide.statSub}</div>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0">
                     <Truck className="w-4 h-4" />
                   </div>
                 </div>
