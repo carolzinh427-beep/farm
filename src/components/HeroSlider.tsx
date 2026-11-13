@@ -13,45 +13,121 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
     {
       id: 1,
       isBlackFriday: true,
-      title: 'BLACK FRIDAY',
+      badge: 'Black Friday',
+      badgeClass: 'bg-red-600 text-white',
       highlight: '60% OFF',
-      subtitle: 'A maior queima de preços de saúde no ES com entrega expressa em 1h.',
+      title: 'BLACK FRIDAY: 60% OFF',
+      subtitle: 'A maior queima de estoque em medicamentos e dermocosméticos do ES.',
       actionText: 'Ver Ofertas',
       actionCategory: 'ofertas',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&h=420&fit=crop&crop=center&q=80',
+      image: '/hero/slide1_blackfriday.jpg',
       statText: 'Black Friday 60% OFF',
-      statSub: 'Grande Vitória e Interior'
+      statSub: 'Vitória • Vila Velha • Serra'
     },
     {
       id: 2,
       isBlackFriday: false,
-      title: 'Dermocosméticos de Verão',
-      highlight: '',
-      subtitle: 'Proteção solar e hidratação com as melhores marcas dermatológicas.',
+      badge: 'Dermocosméticos',
+      badgeClass: 'bg-emerald-700 text-white',
+      highlight: 'Verão Capixaba',
+      title: 'Proteção Solar e Cuidados de Verão',
+      subtitle: 'As melhores marcas dermatológicas: La Roche-Posay, CeraVe e Vichy.',
       actionText: 'Dermocosméticos',
       actionCategory: 'dermocosmeticos',
-      image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=420&fit=crop&crop=center&q=80',
+      image: '/hero/slide2_dermo.jpg',
       statText: 'Leve 2 Pague 1',
       statSub: 'Protetores selecionados'
     },
     {
       id: 3,
       isBlackFriday: false,
-      title: 'Farmácia Popular no ES',
-      highlight: '',
-      subtitle: 'Medicamentos gratuitos para hipertensão e diabetes pelo SUS na VivaBem.',
+      badge: 'Farmácia Popular',
+      badgeClass: 'bg-red-600 text-white',
+      highlight: '100% Gratuito',
+      title: 'Medicamentos pelo SUS Grátis',
+      subtitle: 'Tratamentos para pressão alta, diabetes e asma sem custos na VivaBem.',
       actionText: 'Enviar Receita',
       actionCategory: 'prescription',
-      image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=420&fit=crop&crop=center&q=80',
-      statText: '100% Gratuito',
-      statSub: 'Atendimento WhatsApp'
+      image: '/hero/slide3_popular.jpg',
+      statText: 'SUS Gratuito',
+      statSub: 'Atendimento no WhatsApp'
+    },
+    {
+      id: 4,
+      isBlackFriday: false,
+      badge: 'Vitaminas & Imunidade',
+      badgeClass: 'bg-amber-600 text-white',
+      highlight: 'Até 40% OFF',
+      title: 'Energia e Imunidade Reforçada',
+      subtitle: 'Vitamina C, Zinco, Ômega 3 e multivitamínicos para toda a sua família.',
+      actionText: 'Ver Vitaminas',
+      actionCategory: 'vitaminas',
+      image: '/hero/slide4_vitaminas.jpg',
+      statText: 'Imunidade Forte',
+      statSub: 'Redoxon, Centrum e mais'
+    },
+    {
+      id: 5,
+      isBlackFriday: false,
+      badge: 'Mamãe & Bebê',
+      badgeClass: 'bg-sky-600 text-white',
+      highlight: 'Super Combos',
+      title: 'Cuidado Especial para o seu Bebê',
+      subtitle: 'Fraldas Pampers, fórmulas Nan Supreme, lenços e pomadas com desconto.',
+      actionText: 'Linha Infantil',
+      actionCategory: 'mamae-bebe',
+      image: '/hero/slide5_bebe.jpg',
+      statText: 'Combos Econômicos',
+      statSub: 'Fraldas e Fórmulas'
+    },
+    {
+      id: 6,
+      isBlackFriday: false,
+      badge: 'Genéricos de Confiança',
+      badgeClass: 'bg-amber-500 text-slate-900',
+      highlight: 'Economize até 70%',
+      title: 'Genéricos com Procedência Garantida',
+      subtitle: 'A mesma eficácia pelo menor preço: Medley, EMS, Eurofarma e Sanofi.',
+      actionText: 'Ver Genéricos',
+      actionCategory: 'medicamentos',
+      image: '/hero/slide6_genericos.jpg',
+      statText: 'Economize até 70%',
+      statSub: 'Mesmo princípio ativo'
+    },
+    {
+      id: 7,
+      isBlackFriday: false,
+      badge: 'Manipulação VivaBem',
+      badgeClass: 'bg-teal-600 text-white',
+      highlight: 'Fórmulas Sob Medida',
+      title: 'Manipulação com Orçamento Online',
+      subtitle: 'Envie a foto da sua receita médica e receba orçamento rápido no WhatsApp.',
+      actionText: 'Cotar Fórmula',
+      actionCategory: 'prescription',
+      image: '/hero/slide7_manipulacao.jpg',
+      statText: 'Orçamento Rápido',
+      statSub: 'Laboratório Certificado'
+    },
+    {
+      id: 8,
+      isBlackFriday: false,
+      badge: 'Espaço Mais Saúde',
+      badgeClass: 'bg-red-700 text-white',
+      highlight: 'Atendimento Farmacêutico',
+      title: 'Testes Rápidos, Vacinas e Cuidados',
+      subtitle: 'Aferição de pressão arterial, glicemia, bioimpedância e curativos.',
+      actionText: 'Conhecer Serviços',
+      actionCategory: 'cuidados',
+      image: '/hero/slide8_servicos.jpg',
+      statText: 'Farmacêutico Presente',
+      statSub: 'Lojas na Grande Vitória'
     }
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000);
+    }, 5500);
     return () => clearInterval(timer);
   }, [slides.length]);
 
@@ -59,7 +135,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
 
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-4 pt-2 sm:pt-3 w-full">
-      {/* Compact Main Banner Slider (Optimized Height for Mobile & Desktop) */}
+      {/* 8-Part Hero Slider (Compact & Fixed Dimensions for ALL Slides) */}
       <div 
         className={`relative overflow-hidden rounded-xl sm:rounded-2xl shadow-sm transition-all duration-700 ${
           slide.isBlackFriday 
@@ -76,20 +152,18 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
           </>
         )}
 
-        {/* Compact Grid: items-center with reduced vertical height */}
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 items-center p-3.5 sm:p-5 lg:p-6 min-h-[170px] sm:min-h-[200px] md:min-h-[230px] gap-3 sm:gap-4">
+        {/* Compact Grid: items-center with strictly uniform vertical height */}
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 items-center p-3.5 sm:p-5 lg:p-6 min-h-[170px] sm:min-h-[190px] md:min-h-[220px] gap-3 sm:gap-4">
           {/* Left Text Column */}
           <div className="md:col-span-7 space-y-1.5 sm:space-y-2">
-            {slide.isBlackFriday && (
-              <div className="flex items-center gap-1.5 mb-0.5">
-                <span className="bg-red-600 text-white font-black text-[9px] sm:text-[10px] px-2 py-0.5 rounded tracking-widest uppercase">
-                  Black Friday
-                </span>
-                <span className="text-emerald-400 font-black text-[10px] sm:text-xs tracking-wider uppercase">
-                  60% OFF
-                </span>
-              </div>
-            )}
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <span className={`font-black text-[9px] sm:text-[10px] px-2 py-0.5 rounded tracking-widest uppercase ${slide.badgeClass}`}>
+                {slide.badge}
+              </span>
+              <span className="text-emerald-400 font-black text-[10px] sm:text-xs tracking-wider uppercase">
+                {slide.highlight}
+              </span>
+            </div>
 
             <h1 className="text-lg sm:text-2xl lg:text-3xl font-black tracking-tight leading-snug">
               {slide.isBlackFriday ? (
@@ -135,26 +209,20 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
             </div>
           </div>
 
-          {/* Right Visual Box Column (Compact on Desktop, Hidden or Slim on Mobile) */}
-          <div className="hidden md:flex md:col-span-5 items-center justify-center relative">
-            <div className={`relative w-full max-w-[320px] h-[150px] lg:h-[170px] rounded-xl overflow-hidden shadow-md border group flex-shrink-0 ${
-              slide.isBlackFriday ? 'border-red-600/50' : 'border-white/20'
-            }`}>
+          {/* Right Visual Box Column (EXACT STRICT IDENTICAL SIZE ACROSS ALL 8 SLIDES) */}
+          <div className="hidden md:flex md:col-span-5 items-center justify-center flex-shrink-0">
+            <div className="relative w-[320px] lg:w-[350px] h-[160px] lg:h-[175px] rounded-xl overflow-hidden shadow-md border border-white/20 flex-shrink-0 bg-slate-900">
               <img 
                 src={slide.image} 
                 alt={slide.title}
-                className="w-full h-full object-cover object-center block group-hover:scale-105 transition-transform duration-700"
-                loading="lazy"
+                className="w-full h-full object-cover object-center block"
+                loading="eager"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-2 left-2 right-2 z-10">
-                <div className={`rounded-lg p-1.5 sm:p-2 w-full shadow-xs flex items-center justify-between border ${
-                  slide.isBlackFriday 
-                    ? 'bg-zinc-950/95 text-white border-red-600/40' 
-                    : 'bg-white text-slate-900 border-slate-100'
-                }`}>
+                <div className="rounded-lg p-1.5 sm:p-2 w-full shadow-xs flex items-center justify-between border bg-zinc-950/90 text-white border-white/10">
                   <div>
-                    <div className="text-[10px] font-black text-red-500 uppercase tracking-wider leading-none">{slide.statText}</div>
+                    <div className="text-[10px] font-black text-red-400 uppercase tracking-wider leading-none">{slide.statText}</div>
                     <div className="text-[10px] font-semibold text-emerald-400 leading-tight mt-0.5">{slide.statSub}</div>
                   </div>
                   <div className="w-6 h-6 rounded bg-emerald-600/20 text-emerald-400 flex items-center justify-center flex-shrink-0">
@@ -182,7 +250,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
           <ChevronRight className="w-3.5 h-3.5" />
         </button>
 
-        {/* Dots */}
+        {/* 8 Dots Navigation Indicator */}
         <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
           {slides.map((_, idx) => (
             <button
