@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import Carousel, { CarouselItem } from './Carousel';
 
 interface EcosystemItem {
   id: string;
@@ -63,9 +63,40 @@ export const EcosystemCards: React.FC<EcosystemCardsProps> = ({
     }
   };
 
+  const mobileCarouselItems: CarouselItem[] = ECOSYSTEM_ITEMS.map((item) => ({
+    id: item.id,
+    title: item.title,
+    description: item.description,
+    image: item.image,
+    buttonText: item.buttonText,
+    onAction: () => handleClick(item)
+  }));
+
   return (
     <section className="w-full py-2 sm:py-5">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+      {/* MOBILE VIEW: React Bits <Carousel /> Component with 3D Momentum & Tilt Effect */}
+      <div className="md:hidden w-full flex flex-col items-center py-1">
+        <div className="w-full max-w-sm px-1">
+          <Carousel
+            items={mobileCarouselItems}
+            baseWidth={320}
+            aspectRatio={1.25}
+            effect="tilt"
+            indicator="dots"
+            frame={true}
+            arrows={false}
+            loop={false}
+            autoplay={false}
+            autoplayDelay={3000}
+            pauseOnHover={false}
+            theme="dark"
+            onCardClick={(idx) => handleClick(ECOSYSTEM_ITEMS[idx])}
+          />
+        </div>
+      </div>
+
+      {/* DESKTOP VIEW: Clean 4-Column Grid */}
+      <div className="hidden md:grid md:grid-cols-4 gap-4">
         {ECOSYSTEM_ITEMS.map((item) => (
           <div
             key={item.id}
@@ -82,13 +113,13 @@ export const EcosystemCards: React.FC<EcosystemCardsProps> = ({
               />
             </div>
 
-            {/* Bottom Content Area (Exact Drogasil Style) */}
-            <div className="p-3 sm:p-5 flex-1 flex flex-col justify-between">
+            {/* Bottom Content Area */}
+            <div className="p-4 lg:p-5 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="text-sm sm:text-base font-black text-slate-900 group-hover:text-red-600 transition-colors">
+                <h3 className="text-sm lg:text-base font-black text-slate-900 group-hover:text-red-600 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-[11px] sm:text-xs text-slate-500 mt-1.5 line-clamp-3 leading-relaxed">
+                <p className="text-[11px] lg:text-xs text-slate-500 mt-1.5 line-clamp-3 leading-relaxed">
                   {item.description}
                 </p>
               </div>
