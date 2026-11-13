@@ -180,12 +180,10 @@ export const App: React.FC = () => {
         {/* If user is browsing home (todos and no search) show Carousels with Drogasil Arrows */}
         {selectedCategory === 'todos' && !searchQuery ? (
           <>
-            {/* CAROUSEL 1: Os mais escolhidos (Borda apenas nos itens) */}
+            {/* CAROUSEL 1: Os mais escolhidos */}
             <div className="py-1">
               <ProductCarousel
                 title="Os mais escolhidos"
-                subtitle={`Os itens favoritos e mais procurados pelos capixabas em ${selectedCity}`}
-                badge="Esquenta Black"
                 products={blackFridayDeals}
                 onAddToCart={handleAddToCart}
                 cartItems={cartItems}
@@ -193,24 +191,22 @@ export const App: React.FC = () => {
               />
             </div>
 
-            {/* CAROUSEL 2: Mais Comprados no Espírito Santo (Borda apenas nos itens) */}
+            {/* CAROUSEL 2: Mais Comprados da Farmácia */}
             <div className="py-1">
               <ProductCarousel
                 title="Mais Comprados da Farmácia"
-                subtitle={`Os itens mais vendidos e procurados pelas famílias de ${selectedCity} e todo o ES`}
-                badge="Mais Pedidos"
                 products={mostPurchased}
                 onAddToCart={handleAddToCart}
                 cartItems={cartItems}
               />
             </div>
 
-            {/* EDITORIAL CAROUSEL: Cuidados que você merece (Borda apenas nos itens) */}
+            {/* EDITORIAL CAROUSEL: Cuidados que você merece */}
             <div className="py-1">
               <CareBannerCarousel onSelectCategory={setSelectedCategory} />
             </div>
 
-            {/* SERVICES CAROUSEL: Espaço Mais Saúde (Borda apenas nos itens) */}
+            {/* SERVICES CAROUSEL: Espaço Mais Saúde */}
             <div className="py-1">
               <HealthServicesCarousel
                 onScheduleService={(service) => {
@@ -220,23 +216,20 @@ export const App: React.FC = () => {
               />
             </div>
 
-            {/* CAROUSEL 3: Sugestões para você (Borda apenas nos itens) */}
+            {/* CAROUSEL 3: Sugestões para você */}
             <div className="py-1">
               <ProductCarousel
                 title="Sugestões para você"
-                subtitle={`Recomendações personalizadas com base nos produtos mais procurados em ${selectedCity}`}
-                badge="Para Você"
                 products={suggestedProducts}
                 onAddToCart={handleAddToCart}
                 cartItems={cartItems}
               />
             </div>
 
-            {/* CAROUSEL 4: Dermocosméticos e Cuidados Diários (Borda apenas nos itens) */}
+            {/* CAROUSEL 4: Dermocosméticos e Cuidados Pessoais */}
             <div className="py-1">
               <ProductCarousel
                 title="Dermocosméticos e Cuidados Pessoais"
-                subtitle="Proteção solar, hidratação profunda e higiene completa"
                 products={dermocareProducts}
                 onAddToCart={handleAddToCart}
                 cartItems={cartItems}

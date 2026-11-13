@@ -100,15 +100,10 @@ export const CareBannerCarousel: React.FC<CareBannerCarouselProps> = ({ onSelect
   return (
     <section className="w-full py-2 sm:py-3 contain-layout">
       {/* Section Header */}
-      <div className="flex items-center justify-between mb-2.5 sm:mb-3 px-1">
-        <div>
-          <h2 className="text-base sm:text-xl font-black text-slate-900 tracking-tight">
-            Cuidados que você merece
-          </h2>
-          <p className="text-[11px] sm:text-xs text-slate-500 font-medium">
-            Seleções especiais de autocuidado e bem-estar para o seu dia a dia
-          </p>
-        </div>
+      <div className="flex items-center justify-between mb-2 sm:mb-2.5 px-1">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+          Cuidados que você merece
+        </h2>
 
         {/* Circular Arrows */}
         <div className="flex items-center gap-1.5 sm:gap-2">

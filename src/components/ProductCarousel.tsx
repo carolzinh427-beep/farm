@@ -73,22 +73,10 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({
   return (
     <section className="w-full py-2 sm:py-3 contain-layout">
       {/* Header with Title on Left and Navigation Arrows on Right */}
-      <div className="flex items-center justify-between mb-2.5 sm:mb-3 px-1">
-        <div className="flex items-center gap-2">
-          {badge && (
-            <span className="hidden sm:inline-flex items-center gap-1 bg-red-100 text-red-700 text-[10px] font-black uppercase px-2 py-0.5 rounded tracking-wider">
-              {badge}
-            </span>
-          )}
-          <div>
-            <h2 className="text-base sm:text-lg md:text-xl font-black text-slate-900 tracking-tight">
-              {title}
-            </h2>
-            {subtitle && (
-              <p className="text-[11px] sm:text-xs text-slate-500 font-medium">{subtitle}</p>
-            )}
-          </div>
-        </div>
+      <div className="flex items-center justify-between mb-2 sm:mb-2.5 px-1">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 tracking-tight">
+          {title}
+        </h2>
 
         {/* Navigation Arrows */}
         <div className="flex items-center gap-1.5 sm:gap-2">
