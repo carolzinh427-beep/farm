@@ -2,23 +2,24 @@ import React, { useState } from 'react';
 import { Logo } from './Logo';
 import { 
   Search, 
-  ShoppingCart, 
   MapPin, 
   FileText, 
-  PhoneCall, 
-  Clock, 
-  ChevronDown, 
   User, 
+  Package, 
+  ShoppingBasket,
+  ChevronDown, 
   Menu, 
   X,
   Truck,
+  Clock,
+  Building2,
+  PhoneCall,
   Pill,
   Sparkles,
-  Heart,
-  Baby,
   Smile,
-  Tag,
-  Building2
+  Baby,
+  Heart,
+  Tag
 } from 'lucide-react';
 import { CartItem } from '../types';
 
@@ -27,6 +28,8 @@ interface NavbarProps {
   onOpenCart: () => void;
   onOpenPrescription: () => void;
   onOpenLocation: () => void;
+  onOpenAuth: () => void;
+  onOpenOrders: () => void;
   selectedCity: string;
   searchQuery: string;
   onSearchChange: (query: string) => void;
@@ -39,6 +42,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenCart,
   onOpenPrescription,
   onOpenLocation,
+  onOpenAuth,
+  onOpenOrders,
   selectedCity,
   searchQuery,
   onSearchChange,
@@ -62,7 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
-      {/* 1. Top Informational Strip (Drogasil Style) */}
+      {/* 1. Top Informational Strip */}
       <div className="bg-slate-100 text-slate-700 text-xs py-1.5 px-4 border-b border-slate-200">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-3">
@@ -97,13 +102,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* 2. Main Header Bar */}
+      {/* 2. Main Drogasil-Style Header Bar */}
       <div className="max-w-7xl mx-auto px-4 py-3 sm:py-3.5">
-        <div className="flex items-center justify-between gap-3 md:gap-6">
+        <div className="flex items-center justify-between gap-3 lg:gap-6">
           {/* Mobile hamburger */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-            className="md:hidden p-1.5 text-slate-700 hover:text-red-600 focus:outline-none"
+            className="lg:hidden p-1.5 text-slate-700 hover:text-red-600 focus:outline-none"
             aria-label="Abrir Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -114,76 +119,104 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Logo size="md" />
           </a>
 
-          {/* Search Bar (Clean Drogasil Aesthetic) */}
-          <div className="flex-1 max-w-2xl relative">
+          {/* Search Bar (Rounded Pill with Magnifying Glass on the right) */}
+          <div className="flex-1 max-w-xl mx-2 relative">
             <div className="relative">
-              <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
-                placeholder="O que você procura hoje? (Remédios, genéricos, marcas...)"
+                placeholder="Buscar na VivaBem..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="w-full bg-slate-50 hover:bg-white focus:bg-white text-slate-900 placeholder:text-slate-400 pl-11 pr-20 py-2.5 rounded-lg border border-slate-300 focus:border-red-600 focus:ring-1 focus:ring-red-600 text-sm transition-all outline-none"
+                className="w-full bg-[#EFEFEF] hover:bg-[#E8E8E8] focus:bg-white text-slate-900 placeholder:text-slate-500 pl-4 pr-10 py-2.5 rounded-full border border-transparent focus:border-slate-300 text-sm transition-all outline-none"
               />
-              {searchQuery ? (
-                <button 
-                  onClick={() => onSearchChange('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-500 hover:text-slate-800 px-2 py-0.5 rounded"
-                >
-                  Limpar
-                </button>
-              ) : (
-                <button 
-                  className="hidden sm:block absolute right-2.5 top-1/2 -translate-y-1/2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-3.5 py-1.5 rounded-md transition-colors"
-                >
-                  Buscar
-                </button>
-              )}
+              <button 
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-600 hover:text-red-600"
+                aria-label="Buscar"
+              >
+                <Search className="w-5 h-5" />
+              </button>
             </div>
           </div>
 
-          {/* Location Delivery Selector (Drogasil Style) */}
-          <button
-            onClick={onOpenLocation}
-            className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all text-left"
-          >
-            <MapPin className="w-4 h-4 text-red-600 flex-shrink-0" />
-            <div className="leading-tight">
-              <span className="text-[10px] text-slate-500 block uppercase tracking-wider font-semibold">Entregar em</span>
-              <span className="text-xs font-bold text-slate-800 flex items-center gap-1">
-                {selectedCity}, ES
-                <ChevronDown className="w-3 h-3 text-slate-400" />
-              </span>
-            </div>
-          </button>
-
-          {/* User & Actions */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Send Prescription Button (Clean Medical Pill Style) */}
+          {/* 4 Signature Drogasil Action Items */}
+          <div className="hidden lg:flex items-center gap-5 xl:gap-7 flex-shrink-0">
+            {/* 1: Compra rápida com receita */}
             <button
               onClick={onOpenPrescription}
-              className="hidden sm:flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs px-3.5 py-2.5 rounded-lg transition-all shadow-xs"
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group"
             >
-              <FileText className="w-3.5 h-3.5" />
-              <span>Enviar Receita</span>
+              <div className="text-red-700 group-hover:scale-105 transition-transform">
+                <FileText className="w-6 h-6 stroke-[1.8]" />
+              </div>
+              <div className="leading-tight">
+                <span className="text-[11px] text-slate-500 block">Compra rápida</span>
+                <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">com receita</span>
+              </div>
             </button>
 
-            {/* Shopping Cart Button */}
+            {/* 2: Boas-vindas! Entrar ou cadastrar */}
+            <button
+              onClick={onOpenAuth}
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group"
+            >
+              <div className="text-red-700 group-hover:scale-105 transition-transform">
+                <User className="w-6 h-6 stroke-[1.8]" />
+              </div>
+              <div className="leading-tight">
+                <span className="text-[11px] text-slate-500 block">Boas-vindas!</span>
+                <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">Entrar ou cadastrar</span>
+              </div>
+            </button>
+
+            {/* 3: Acompanhar pedidos */}
+            <button
+              onClick={onOpenOrders}
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group"
+            >
+              <div className="text-red-700 group-hover:scale-105 transition-transform">
+                <Package className="w-6 h-6 stroke-[1.8]" />
+              </div>
+              <div className="leading-tight">
+                <span className="text-[11px] text-slate-500 block">Acompanhar</span>
+                <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">pedidos</span>
+              </div>
+            </button>
+
+            {/* 4: Cesta */}
             <button
               onClick={onOpenCart}
-              className="relative flex items-center gap-2.5 bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold text-xs px-3.5 py-2.5 rounded-lg transition-all shadow-xs"
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group relative"
             >
-              <div className="relative">
-                <ShoppingCart className="w-4 h-4" />
+              <div className="text-red-700 group-hover:scale-105 transition-transform relative">
+                <ShoppingBasket className="w-6 h-6 stroke-[1.8]" />
                 {totalItemsCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-white text-red-600 font-black text-[10px] w-4 h-4 rounded-full flex items-center justify-center shadow">
+                  <span className="absolute -top-1.5 -right-2 bg-red-600 text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
                     {totalItemsCount}
                   </span>
                 )}
               </div>
-              <span className="hidden md:inline font-bold">
-                {totalPrice > 0 ? `R$ ${totalPrice.toFixed(2).replace('.', ',')}` : 'Cesta'}
-              </span>
+              <div className="leading-tight">
+                <span className="text-[11px] text-slate-500 block">Cesta</span>
+                <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">
+                  {totalPrice > 0 ? `R$ ${totalPrice.toFixed(2).replace('.', ',')}` : 'R$ 0,00'}
+                </span>
+              </div>
+            </button>
+          </div>
+
+          {/* Mobile Right: Cart Icon */}
+          <div className="flex lg:hidden items-center gap-2">
+            <button
+              onClick={onOpenCart}
+              className="p-2 text-red-700 hover:text-red-800 relative"
+              aria-label="Abrir Cesta"
+            >
+              <ShoppingBasket className="w-6 h-6 stroke-[2]" />
+              {totalItemsCount > 0 && (
+                <span className="absolute top-0 right-0 bg-red-600 text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
+                  {totalItemsCount}
+                </span>
+              )}
             </button>
           </div>
         </div>
@@ -204,7 +237,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* 3. Category Horizontal Ribbon (Drogasil Desktop Style) */}
+      {/* 3. Category Horizontal Ribbon */}
       <nav className="hidden md:block border-t border-slate-200 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-1 overflow-x-auto py-2 scrollbar-none text-xs font-semibold text-slate-600">
@@ -233,12 +266,29 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-3 shadow-lg">
+          <div className="grid grid-cols-2 gap-2 pb-3 border-b border-slate-100">
+            <button
+              onClick={() => { onOpenAuth(); setMobileMenuOpen(false); }}
+              className="flex items-center justify-center gap-1.5 py-2 px-3 bg-red-50 text-red-700 rounded-lg font-bold text-xs"
+            >
+              <User className="w-4 h-4" />
+              <span>Entrar / Cadastrar</span>
+            </button>
+            <button
+              onClick={() => { onOpenOrders(); setMobileMenuOpen(false); }}
+              className="flex items-center justify-center gap-1.5 py-2 px-3 bg-slate-100 text-slate-700 rounded-lg font-bold text-xs"
+            >
+              <Package className="w-4 h-4" />
+              <span>Meus Pedidos</span>
+            </button>
+          </div>
+
           <button
             onClick={() => { onOpenPrescription(); setMobileMenuOpen(false); }}
             className="w-full flex items-center justify-center gap-2 bg-emerald-700 text-white py-2.5 rounded-lg font-bold text-xs"
           >
             <FileText className="w-4 h-4" />
-            Enviar Receita Médica no WhatsApp
+            Compra rápida com receita
           </button>
 
           <div className="pt-2">

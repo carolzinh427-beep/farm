@@ -8,6 +8,8 @@ import { ProductCard } from './components/ProductCard';
 import { CartDrawer } from './components/CartDrawer';
 import { PrescriptionModal } from './components/PrescriptionModal';
 import { LocationModal } from './components/LocationModal';
+import { AuthModal } from './components/AuthModal';
+import { OrdersModal } from './components/OrdersModal';
 import { Footer } from './components/Footer';
 import { 
   Clock, 
@@ -27,6 +29,8 @@ export const App: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isPrescriptionOpen, setIsPrescriptionOpen] = useState(false);
   const [isLocationOpen, setIsLocationOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isOrdersOpen, setIsOrdersOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState('Vitória');
   const [selectedCategory, setSelectedCategory] = useState('todos');
   const [searchQuery, setSearchQuery] = useState('');
@@ -115,6 +119,8 @@ export const App: React.FC = () => {
         onOpenCart={() => setIsCartOpen(true)}
         onOpenPrescription={() => setIsPrescriptionOpen(true)}
         onOpenLocation={() => setIsLocationOpen(true)}
+        onOpenAuth={() => setIsAuthOpen(true)}
+        onOpenOrders={() => setIsOrdersOpen(true)}
         selectedCity={selectedCity}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
@@ -301,6 +307,18 @@ export const App: React.FC = () => {
         onClose={() => setIsLocationOpen(false)}
         selectedCity={selectedCity}
         onSelectCity={setSelectedCity}
+      />
+
+      {/* Auth Modal (Entrar ou Cadastrar) */}
+      <AuthModal
+        isOpen={isAuthOpen}
+        onClose={() => setIsAuthOpen(false)}
+      />
+
+      {/* Orders Tracking Modal */}
+      <OrdersModal
+        isOpen={isOrdersOpen}
+        onClose={() => setIsOrdersOpen(false)}
       />
 
       {/* Footer */}
