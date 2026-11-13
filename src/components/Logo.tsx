@@ -4,7 +4,8 @@ export const Logo: React.FC<{
   className?: string; 
   size?: 'sm' | 'md' | 'lg';
   variant?: 'default' | 'white';
-}> = ({ className = '', size = 'md', variant = 'default' }) => {
+  showSubtitle?: boolean;
+}> = ({ className = '', size = 'md', variant = 'default', showSubtitle = false }) => {
   const iconSizes = {
     sm: 'w-7 h-7',
     md: 'w-8 h-8 sm:w-9 sm:h-9',
@@ -50,21 +51,19 @@ export const Logo: React.FC<{
         </svg>
       </div>
 
-      {/* Typography */}
+      {/* Typography: Clean, bold and modern */}
       <div className="flex flex-col leading-none">
         <div className="flex items-center font-black tracking-tight">
           <span className={`${isWhite ? 'text-white' : 'text-red-600'} ${textSizes[size]}`}>Viva</span>
           <span className={`${isWhite ? 'text-emerald-400' : 'text-emerald-700'} ${textSizes[size]}`}>Bem</span>
         </div>
-        <div className="flex items-center gap-1 mt-0.5">
-          <span className={`text-[8px] sm:text-[9px] tracking-wider uppercase font-extrabold ${isWhite ? 'text-emerald-200/90' : 'text-slate-500'}`}>
-            Farmácia
-          </span>
-          <span className={`w-1 h-1 rounded-full ${isWhite ? 'bg-emerald-300/60' : 'bg-slate-300'}`}></span>
-          <span className={`text-[8px] sm:text-[9px] font-bold uppercase tracking-wider ${isWhite ? 'text-white' : 'text-emerald-700'}`}>
-            Espírito Santo
-          </span>
-        </div>
+        {showSubtitle && (
+          <div className="flex items-center gap-1 mt-0.5">
+            <span className={`text-[8px] sm:text-[9px] tracking-wider uppercase font-extrabold ${isWhite ? 'text-emerald-200/90' : 'text-slate-500'}`}>
+              Farmácia
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

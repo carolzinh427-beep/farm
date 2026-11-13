@@ -105,23 +105,27 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Main Brand Green Header Bar (Menu, White Logo, User, Basket) */}
         <div className="bg-[#064E3B] px-3.5 pt-2.5 pb-3 text-white space-y-2.5">
-          <div className="flex items-center justify-between gap-2">
-            {/* Hamburger Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1 text-white hover:text-emerald-200 cursor-pointer"
-              aria-label="Abrir Menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 stroke-[2.2]" />}
-            </button>
+          <div className="flex items-center justify-between">
+            {/* Left anchor: Hamburger Button */}
+            <div className="flex items-center w-16">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-1 text-white hover:text-emerald-200 cursor-pointer"
+                aria-label="Abrir Menu"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 stroke-[2.2]" />}
+              </button>
+            </div>
 
-            {/* Farmácia VivaBem Logo (White Variant) */}
-            <a href="#" className="flex-shrink-0">
-              <Logo size="md" variant="white" />
-            </a>
+            {/* Center anchor: VivaBem Logo (Optical & Mathematical Center) */}
+            <div className="flex-1 flex items-center justify-center">
+              <a href="#" className="flex items-center justify-center">
+                <Logo size="md" variant="white" />
+              </a>
+            </div>
 
-            {/* Right Icons: User Profile & Cart Basket */}
-            <div className="flex items-center gap-2.5">
+            {/* Right anchor: User Profile & Cart Basket (balanced width for perfect center) */}
+            <div className="flex items-center justify-end gap-2.5 w-16">
               <button
                 onClick={onOpenAuth}
                 className="p-1 text-white hover:text-emerald-200 cursor-pointer"
