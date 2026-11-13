@@ -195,55 +195,6 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
           ))}
         </div>
       </div>
-
-      {/* Drogasil Signature Quick-Access Strip */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mt-3">
-        <div 
-          onClick={onOpenPrescription}
-          className="bg-white p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-all cursor-pointer flex items-center gap-2.5 group"
-        >
-          <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center flex-shrink-0">
-            <FileText className="w-4 h-4" />
-          </div>
-          <div className="leading-tight">
-            <div className="text-xs font-bold text-slate-800">Envie sua Receita</div>
-            <div className="text-[10px] text-slate-500">Orçamento no WhatsApp</div>
-          </div>
-        </div>
-
-        <div 
-          onClick={() => onSelectCategory('medicamentos')}
-          className="bg-white p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-all cursor-pointer flex items-center gap-2.5 group"
-        >
-          <div className="w-9 h-9 rounded-lg bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0">
-            <ShieldCheck className="w-4 h-4" />
-          </div>
-          <div className="leading-tight">
-            <div className="text-xs font-bold text-slate-800">Genéricos com Desconto</div>
-            <div className="text-[10px] text-slate-500">EMS, Medley e Eurofarma</div>
-          </div>
-        </div>
-
-        <div className="bg-white p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-all flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center flex-shrink-0">
-            <Truck className="w-4 h-4" />
-          </div>
-          <div className="leading-tight">
-            <div className="text-xs font-bold text-slate-800">Frete Grátis no ES</div>
-            <div className="text-[10px] text-slate-500">A partir de R$ 79 na Grande Vitória</div>
-          </div>
-        </div>
-
-        <div className="bg-white p-3 rounded-xl border border-slate-200 hover:border-slate-300 transition-all flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-lg bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0">
-            <HeartPulse className="w-4 h-4" />
-          </div>
-          <div className="leading-tight">
-            <div className="text-xs font-bold text-slate-800">Atenção Farmacêutica</div>
-            <div className="text-[10px] text-slate-500">Farmacêutico CRF-ES de plantão</div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

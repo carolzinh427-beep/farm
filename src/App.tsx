@@ -3,6 +3,7 @@ import { PRODUCTS, ES_CITIES } from './data/products';
 import { Product, CartItem } from './types';
 import { Navbar } from './components/Navbar';
 import { HeroSlider } from './components/HeroSlider';
+import { BenefitStrip } from './components/BenefitStrip';
 import { ProductCard } from './components/ProductCard';
 import { CartDrawer } from './components/CartDrawer';
 import { PrescriptionModal } from './components/PrescriptionModal';
@@ -123,10 +124,17 @@ export const App: React.FC = () => {
 
       {/* Hero Banner Slider */}
       {selectedCategory === 'todos' && !searchQuery && (
-        <HeroSlider
-          onOpenPrescription={() => setIsPrescriptionOpen(true)}
-          onSelectCategory={setSelectedCategory}
-        />
+        <>
+          <HeroSlider
+            onOpenPrescription={() => setIsPrescriptionOpen(true)}
+            onSelectCategory={setSelectedCategory}
+          />
+          <BenefitStrip
+            onOpenLocation={() => setIsLocationOpen(true)}
+            onOpenPrescription={() => setIsPrescriptionOpen(true)}
+            onSelectCategory={setSelectedCategory}
+          />
+        </>
       )}
 
       {/* Featured Deals Carousel/Section (6 on desktop, 3 on mobile) */}
