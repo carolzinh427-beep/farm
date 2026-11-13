@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Product, CartItem } from '../types';
 import { ProductCard } from './ProductCard';
-import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface ProductCarouselProps {
   title: string;
@@ -26,42 +26,54 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Check scroll position to update arrow states
-  const checkScroll = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-  };
-
+  // Throttled scroll check using requestAnimationFrame with equality check to prevent re-renders
   useEffect(() => {
-    checkScroll();
+    let ticking = false;
     const el = scrollRef.current;
-    if (el) {
-      el.addEventListener('scroll', checkScroll, { passive: true });
-      window.addEventListener('resize', checkScroll);
-    }
-    return () => {
-      if (el) el.removeEventListener('scroll', checkScroll);
-      window.removeEventListener('resize', checkScroll);
-    };
-  }, [products]);
+    if (!el) return;
 
-  const handleScroll = (direction: 'left' | 'right') => {
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (scrollRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+            const newCanLeft = scrollLeft > 15;
+            const newCanRight = scrollLeft < scrollWidth - clientWidth - 15;
+            setCanScrollLeft((prev) => (prev !== newCanLeft ? newCanLeft : prev));
+            setCanScrollRight((prev) => (prev !== newCanRight ? newCanRight : prev));
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Initial check
+    onScroll();
+
+    el.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [products.length]);
+
+  const handleScroll = useCallback((direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
     const container = scrollRef.current;
-    // Scroll by ~80% of visible container width for natural pagination
     const scrollAmount = container.clientWidth * 0.85;
     container.scrollBy({
       left: direction === 'left' ? -scrollAmount : scrollAmount,
       behavior: 'smooth'
     });
-  };
+  }, []);
 
   return (
-    <section className="w-full py-2 sm:py-3">
+    <section className="w-full py-2 sm:py-3 contain-layout">
       {/* Header with Title on Left and Navigation Arrows on Right */}
-      <div className="flex items-center justify-between mb-3 px-1">
+      <div className="flex items-center justify-between mb-2.5 sm:mb-3 px-1">
         <div className="flex items-center gap-2">
           {badge && (
             <span className="hidden sm:inline-flex items-center gap-1 bg-red-100 text-red-700 text-[10px] font-black uppercase px-2 py-0.5 rounded tracking-wider">
@@ -78,18 +90,17 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({
           </div>
         </div>
 
-        {/* Navigation Arrows: circular buttons ← and → side by side (exact Drogasil style) */}
+        {/* Navigation Arrows */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           {onViewAll && (
             <button
               onClick={onViewAll}
-              className="text-xs font-bold text-red-600 hover:text-red-700 mr-2 hidden md:block"
+              className="text-xs font-bold text-red-600 hover:text-red-700 mr-2 hidden md:block cursor-pointer"
             >
               Ver todos
             </button>
           )}
 
-          {/* Previous Arrow Button */}
           <button
             onClick={() => handleScroll('left')}
             disabled={!canScrollLeft}
@@ -103,7 +114,6 @@ export const ProductCarousel: React.FC<ProductCarouselProps> = ({
             <ArrowLeft className="w-4 h-4 stroke-[2]" />
           </button>
 
-          {/* Next Arrow Button */}
           <button
             onClick={() => handleScroll('right')}
             disabled={!canScrollRight}

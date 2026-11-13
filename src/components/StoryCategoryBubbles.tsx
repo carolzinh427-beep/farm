@@ -73,8 +73,9 @@ export const StoryCategoryBubbles: React.FC<StoryCategoryBubblesProps> = ({ onSe
                 <img
                   src={bubble.image}
                   alt={bubble.label}
-                  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-200"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>

@@ -143,13 +143,9 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
             : 'bg-gradient-to-r from-emerald-800 via-teal-900 to-slate-900 text-white'
         }`}
       >
-        {/* Ambient Red & Green Accents for Black Friday */}
+        {/* Ambient Red & Green Accents for Black Friday (Performant CSS radial gradient, zero GPU blur) */}
         {slide.isBlackFriday && (
-          <>
-            <div className="absolute -left-10 -top-10 w-40 h-40 bg-red-600/20 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-emerald-600/20 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-zinc-950/90 to-black/80 pointer-events-none" />
-          </>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(220,38,38,0.25)_0%,transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(16,185,129,0.2)_0%,transparent_60%)] pointer-events-none" />
         )}
 
         {/* Compact Grid: items-center with strictly uniform vertical height */}
@@ -217,6 +213,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ onOpenPrescription, onSe
                 alt={slide.title}
                 className="w-full h-full object-cover object-center block"
                 loading="eager"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-2 left-2 right-2 z-10">

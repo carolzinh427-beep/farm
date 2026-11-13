@@ -53,6 +53,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, 
             alt={product.name}
             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-200"
             loading="lazy"
+            decoding="async"
           />
 
           {/* Optional Vertical Badge on the Right (e.g. SHAMPOO / HIGIENE / DERMO) */}

@@ -44,3 +44,18 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Mobile Performance Optimizations */
+.contain-layout {
+  contain: layout paint;
+}
+
+img {
+  content-visibility: auto;
+}
+
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}

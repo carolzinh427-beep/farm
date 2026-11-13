@@ -85,14 +85,16 @@ export const BlackFridayCampaignCards: React.FC<BlackFridayCampaignCardsProps> =
                     <img
                       src={c.products[0]}
                       alt={c.tag}
-                      className="absolute left-0 bottom-0 w-16 sm:w-20 h-16 sm:h-20 object-contain drop-shadow-xl z-10 group-hover:scale-108 transition-transform duration-300"
+                      className="absolute left-0 bottom-0 w-16 sm:w-20 h-16 sm:h-20 object-contain drop-shadow-md z-10 group-hover:scale-108 transition-transform duration-200"
                       loading="lazy"
+                      decoding="async"
                     />
                     <img
                       src={c.products[1]}
                       alt={c.tag}
-                      className="absolute right-0 top-0 w-14 sm:w-16 h-14 sm:h-16 object-contain drop-shadow-lg opacity-90 group-hover:scale-105 transition-transform duration-300"
+                      className="absolute right-0 top-0 w-14 sm:w-16 h-14 sm:h-16 object-contain drop-shadow-sm opacity-90 group-hover:scale-105 transition-transform duration-200"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 )}
@@ -152,9 +154,6 @@ export const BlackFridayCampaignCards: React.FC<BlackFridayCampaignCardsProps> =
                 </span>
               </div>
             </div>
-
-            {/* Decorative subtle dark gradient corner */}
-            <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-black/20 rounded-full blur-xl pointer-events-none" />
           </div>
         ))}
       </div>
