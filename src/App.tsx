@@ -83,7 +83,7 @@ export const App: React.FC = () => {
   }, [searchQuery, selectedCategory]);
 
   const lightningDeals = useMemo(() => {
-    return PRODUCTS.filter((p) => p.discountPercentage && p.discountPercentage >= 25);
+    return PRODUCTS.filter((p) => p.discountPercentage && p.discountPercentage >= 25).slice(0, 4);
   }, []);
 
   const totalItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
