@@ -1,20 +1,26 @@
 import React from 'react';
 
-export const Logo: React.FC<{ className?: string; size?: 'sm' | 'md' | 'lg' }> = ({ className = '', size = 'md' }) => {
+export const Logo: React.FC<{ 
+  className?: string; 
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'white';
+}> = ({ className = '', size = 'md', variant = 'default' }) => {
   const iconSizes = {
     sm: 'w-7 h-7',
-    md: 'w-9 h-9',
-    lg: 'w-12 h-12'
+    md: 'w-8 h-8 sm:w-9 sm:h-9',
+    lg: 'w-11 h-11'
   };
 
   const textSizes = {
-    sm: 'text-lg',
-    md: 'text-2xl',
-    lg: 'text-3xl'
+    sm: 'text-base sm:text-lg',
+    md: 'text-xl sm:text-2xl',
+    lg: 'text-2xl sm:text-3xl'
   };
 
+  const isWhite = variant === 'white';
+
   return (
-    <div className={`flex items-center gap-2.5 select-none ${className}`}>
+    <div className={`flex items-center gap-2 select-none ${className}`}>
       {/* Red & Green Cross Emblem */}
       <div className={`${iconSizes[size]} flex-shrink-0 flex items-center justify-center`}>
         <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-xs">
@@ -47,13 +53,15 @@ export const Logo: React.FC<{ className?: string; size?: 'sm' | 'md' | 'lg' }> =
       {/* Typography */}
       <div className="flex flex-col leading-none">
         <div className="flex items-center font-black tracking-tight">
-          <span className={`text-red-600 ${textSizes[size]}`}>Viva</span>
-          <span className={`text-emerald-700 ${textSizes[size]}`}>Bem</span>
+          <span className={`${isWhite ? 'text-white' : 'text-red-600'} ${textSizes[size]}`}>Viva</span>
+          <span className={`${isWhite ? 'text-emerald-400' : 'text-emerald-700'} ${textSizes[size]}`}>Bem</span>
         </div>
-        <div className="flex items-center gap-1.5 mt-0.5">
-          <span className="text-[9px] tracking-wider uppercase font-extrabold text-slate-500">Farmácia</span>
-          <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-          <span className="text-[9px] font-bold text-emerald-700 uppercase tracking-wider">
+        <div className="flex items-center gap-1 mt-0.5">
+          <span className={`text-[8px] sm:text-[9px] tracking-wider uppercase font-extrabold ${isWhite ? 'text-emerald-200/90' : 'text-slate-500'}`}>
+            Farmácia
+          </span>
+          <span className={`w-1 h-1 rounded-full ${isWhite ? 'bg-emerald-300/60' : 'bg-slate-300'}`}></span>
+          <span className={`text-[8px] sm:text-[9px] font-bold uppercase tracking-wider ${isWhite ? 'text-white' : 'text-emerald-700'}`}>
             Espírito Santo
           </span>
         </div>

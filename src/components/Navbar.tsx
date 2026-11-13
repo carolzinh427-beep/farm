@@ -67,205 +67,281 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
-      {/* 1. Top Informational Strip */}
-      <div className="bg-slate-100 text-slate-700 text-xs py-1.5 px-4 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 font-semibold text-emerald-800">
-              <Truck className="w-3.5 h-3.5 text-emerald-700" />
-              Entrega em até 1h na Grande Vitória • ES
-            </span>
-            <span className="hidden md:inline text-slate-300">|</span>
-            <span className="hidden md:flex items-center gap-1 text-slate-600">
-              <Clock className="w-3.5 h-3.5 text-slate-500" />
-              Plantão Farmacêutico 24 Horas
-            </span>
-          </div>
-
-          <div className="flex items-center gap-4 text-xs">
-            <button 
-              onClick={onOpenLocation}
-              className="hover:text-red-700 flex items-center gap-1 text-slate-600 font-medium transition-colors"
-            >
-              <Building2 className="w-3.5 h-3.5 text-slate-500" />
-              <span>Nossas Lojas no ES</span>
-            </button>
-            <span className="hidden sm:inline text-slate-300">|</span>
-            <a 
-              href="tel:2733229000" 
-              className="hover:text-red-700 flex items-center gap-1 text-slate-700 font-semibold transition-colors"
-            >
-              <PhoneCall className="w-3 h-3 text-red-600" />
-              <span>Televendas: (27) 3322-9000</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Main Drogasil-Style Header Bar */}
-      <div className="max-w-7xl mx-auto px-4 py-3 sm:py-3.5">
-        <div className="flex items-center justify-between gap-3 lg:gap-6">
-          {/* Mobile hamburger */}
-          <button 
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-            className="lg:hidden p-1.5 text-slate-700 hover:text-red-600 focus:outline-none"
-            aria-label="Abrir Menu"
+      {/* ======================================================== */}
+      {/* 1. MOBILE HEADER (DROGARIA ROSÁRIO AESTHETIC ADAPTED TO VIVABEM) */}
+      {/* ======================================================== */}
+      <div className="lg:hidden w-full">
+        {/* Top Promotional Bar with Red Pill Button */}
+        <div className="bg-gradient-to-r from-[#032314] via-[#053820] to-[#084D2C] text-white px-3 py-1.5 flex items-center justify-between text-[11px]">
+          <span className="font-semibold text-emerald-100 truncate pr-2">
+            Ofertas especiais no WhatsApp e Web
+          </span>
+          <button
+            onClick={() => onSelectCategory('ofertas')}
+            className="bg-red-600 hover:bg-red-700 active:scale-95 text-white font-black text-[10px] px-2.5 py-0.5 rounded-full shrink-0 shadow-xs cursor-pointer"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            Confira agora!
           </button>
+        </div>
 
-          {/* Brand Logo */}
-          <a href="#" className="flex-shrink-0">
-            <Logo size="md" />
-          </a>
+        {/* Sub-bar: 'Ver cupons' and 'Acompanhar pedido' */}
+        <div className="bg-[#053F24] text-emerald-100 px-4 py-1.5 flex items-center justify-around border-t border-emerald-700/30 text-[11px] font-semibold">
+          <button
+            onClick={() => onSelectCategory('ofertas')}
+            className="flex items-center gap-1.5 hover:text-white cursor-pointer"
+          >
+            <Tag className="w-3.5 h-3.5 text-emerald-300" />
+            <span>Ver cupons</span>
+          </button>
+          <span className="text-emerald-600/60">|</span>
+          <button
+            onClick={onOpenOrders}
+            className="flex items-center gap-1.5 hover:text-white cursor-pointer"
+          >
+            <Package className="w-3.5 h-3.5 text-emerald-300" />
+            <span>Acompanhar pedido</span>
+          </button>
+        </div>
 
-          {/* Search Bar (Rounded Pill with Magnifying Glass on the right) */}
-          <div className="flex-1 max-w-xl mx-2 relative">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Buscar na VivaBem..."
-                value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
-                className="w-full bg-[#EFEFEF] hover:bg-[#E8E8E8] focus:bg-white text-slate-900 placeholder:text-slate-500 pl-4 pr-10 py-2.5 rounded-full border border-transparent focus:border-slate-300 text-sm transition-all outline-none"
-              />
-              <button 
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-600 hover:text-red-600"
-                aria-label="Buscar"
+        {/* Main Brand Green Header Bar (Menu, White Logo, User, Basket) */}
+        <div className="bg-[#064E3B] px-3.5 pt-2.5 pb-3 text-white space-y-2.5">
+          <div className="flex items-center justify-between gap-2">
+            {/* Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-1 text-white hover:text-emerald-200 cursor-pointer"
+              aria-label="Abrir Menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 stroke-[2.2]" />}
+            </button>
+
+            {/* Farmácia VivaBem Logo (White Variant) */}
+            <a href="#" className="flex-shrink-0">
+              <Logo size="md" variant="white" />
+            </a>
+
+            {/* Right Icons: User Profile & Cart Basket */}
+            <div className="flex items-center gap-2.5">
+              <button
+                onClick={onOpenAuth}
+                className="p-1 text-white hover:text-emerald-200 cursor-pointer"
+                aria-label="Entrar ou cadastrar"
               >
-                <Search className="w-5 h-5" />
+                <User className="w-6 h-6 stroke-[2]" />
+              </button>
+
+              <button
+                onClick={onOpenCart}
+                className="p-1 text-white hover:text-emerald-200 relative cursor-pointer"
+                aria-label="Abrir Cesta"
+              >
+                <ShoppingBasket className="w-6 h-6 stroke-[2]" />
+                {totalItemsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
+                    {totalItemsCount}
+                  </span>
+                )}
               </button>
             </div>
           </div>
 
-          {/* 4 Signature Drogasil Action Items */}
-          <div className="hidden lg:flex items-center gap-5 xl:gap-7 flex-shrink-0">
-            {/* 1: Compra rápida com receita */}
+          {/* White Capsule Search Bar: 'Busque por produto ou marca' */}
+          <div className="relative w-full">
+            <input
+              type="text"
+              placeholder="Busque por produto ou marca"
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              className="w-full bg-white text-slate-800 placeholder:text-slate-400 pl-4 pr-10 py-2.5 rounded-full shadow-xs text-xs border border-transparent focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            />
             <button
-              onClick={onOpenPrescription}
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group"
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-800"
+              aria-label="Buscar"
             >
-              <div className="text-red-700 group-hover:scale-105 transition-transform">
-                <FileText className="w-6 h-6 stroke-[1.8]" />
-              </div>
-              <div className="leading-tight">
-                <span className="text-[11px] text-slate-500 block">Compra rápida</span>
-                <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">com receita</span>
-              </div>
-            </button>
-
-            {/* 2: Boas-vindas! Entrar ou cadastrar */}
-            <button
-              onClick={onOpenAuth}
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group"
-            >
-              <div className="text-red-700 group-hover:scale-105 transition-transform">
-                <User className="w-6 h-6 stroke-[1.8]" />
-              </div>
-              <div className="leading-tight">
-                <span className="text-[11px] text-slate-500 block">Boas-vindas!</span>
-                <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">Entrar ou cadastrar</span>
-              </div>
-            </button>
-
-            {/* 3: Acompanhar pedidos */}
-            <button
-              onClick={onOpenOrders}
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group"
-            >
-              <div className="text-red-700 group-hover:scale-105 transition-transform">
-                <Package className="w-6 h-6 stroke-[1.8]" />
-              </div>
-              <div className="leading-tight">
-                <span className="text-[11px] text-slate-500 block">Acompanhar</span>
-                <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">pedidos</span>
-              </div>
-            </button>
-
-            {/* 4: Cesta */}
-            <button
-              onClick={onOpenCart}
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group relative"
-            >
-              <div className="text-red-700 group-hover:scale-105 transition-transform relative">
-                <ShoppingBasket className="w-6 h-6 stroke-[1.8]" />
-                {totalItemsCount > 0 && (
-                  <span className="absolute -top-1.5 -right-2 bg-red-600 text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
-                    {totalItemsCount}
-                  </span>
-                )}
-              </div>
-              <div className="leading-tight">
-                <span className="text-[11px] text-slate-500 block">Cesta</span>
-                <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">
-                  {totalPrice > 0 ? `R$ ${totalPrice.toFixed(2).replace('.', ',')}` : 'R$ 0,00'}
-                </span>
-              </div>
-            </button>
-          </div>
-
-          {/* Mobile Right: Cart Icon */}
-          <div className="flex lg:hidden items-center gap-2">
-            <button
-              onClick={onOpenCart}
-              className="p-2 text-red-700 hover:text-red-800 relative"
-              aria-label="Abrir Cesta"
-            >
-              <ShoppingBasket className="w-6 h-6 stroke-[2]" />
-              {totalItemsCount > 0 && (
-                <span className="absolute top-0 right-0 bg-red-600 text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
-                  {totalItemsCount}
-                </span>
-              )}
+              <Search className="w-4 h-4 stroke-[2.5]" />
             </button>
           </div>
         </div>
 
-        {/* Mobile Delivery location bar */}
-        <div className="lg:hidden mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+        {/* Mobile Location Strip */}
+        <div className="bg-[#053820] text-emerald-100 px-4 py-1.5 flex items-center justify-between text-[11px] border-t border-emerald-700/40">
           <button
             onClick={onOpenLocation}
-            className="flex items-center gap-1.5 text-slate-700 font-semibold"
+            className="flex items-center gap-1.5 text-white font-medium cursor-pointer"
           >
-            <MapPin className="w-3.5 h-3.5 text-red-600" />
+            <MapPin className="w-3.5 h-3.5 text-emerald-300" />
             <span>Entregar em: <strong>{selectedCity}, ES</strong></span>
-            <ChevronDown className="w-3 h-3 text-slate-400" />
+            <ChevronDown className="w-3 h-3 text-emerald-300" />
           </button>
-          <span className="text-[11px] text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded">
+          <span className="text-[10px] text-emerald-300 font-bold bg-white/10 px-2 py-0.5 rounded">
             Entrega em 1h
           </span>
         </div>
       </div>
 
-      {/* 3. Category Horizontal Ribbon */}
-      <nav className="hidden md:block border-t border-slate-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center gap-1 overflow-x-auto py-2 scrollbar-none text-xs font-semibold text-slate-600">
-            {categories.map((cat) => {
-              const active = selectedCategory === cat.id;
-              const Icon = cat.icon;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => onSelectCategory(cat.id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md whitespace-nowrap transition-colors ${
-                    active 
-                      ? 'bg-red-600 text-white font-bold' 
-                      : 'hover:bg-slate-100 text-slate-700 hover:text-red-700'
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span>{cat.label}</span>
-                </button>
-              );
-            })}
+      {/* ======================================================== */}
+      {/* 2. DESKTOP HEADER (FULL DROGASIL / VIVABEM CAPACITIES) */}
+      {/* ======================================================== */}
+      <div className="hidden lg:block">
+        {/* Top Strip */}
+        <div className="bg-slate-100 text-slate-700 text-xs py-1.5 px-4 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
+            <div className="flex items-center gap-3">
+              <span className="flex items-center gap-1.5 font-semibold text-emerald-800">
+                <Truck className="w-3.5 h-3.5 text-emerald-700" />
+                Entrega em até 1h na Grande Vitória • ES
+              </span>
+              <span className="text-slate-300">|</span>
+              <span className="flex items-center gap-1 text-slate-600">
+                <Clock className="w-3.5 h-3.5 text-slate-500" />
+                Plantão Farmacêutico 24 Horas
+              </span>
+            </div>
+
+            <div className="flex items-center gap-4 text-xs">
+              <button 
+                onClick={onOpenLocation}
+                className="hover:text-red-700 flex items-center gap-1 text-slate-600 font-medium transition-colors cursor-pointer"
+              >
+                <Building2 className="w-3.5 h-3.5 text-slate-500" />
+                <span>Nossas Lojas no ES</span>
+              </button>
+              <span className="text-slate-300">|</span>
+              <a 
+                href="tel:2733229000" 
+                className="hover:text-red-700 flex items-center gap-1 text-slate-700 font-semibold transition-colors"
+              >
+                <PhoneCall className="w-3 h-3 text-red-600" />
+                <span>Televendas: (27) 3322-9000</span>
+              </a>
+            </div>
           </div>
         </div>
-      </nav>
 
-      {/* Mobile Drawer Menu */}
+        {/* Main Desktop Header */}
+        <div className="max-w-7xl mx-auto px-4 py-3 sm:py-3.5">
+          <div className="flex items-center justify-between gap-6">
+            <a href="#" className="flex-shrink-0">
+              <Logo size="md" />
+            </a>
+
+            {/* Search Bar */}
+            <div className="flex-1 max-w-xl mx-2 relative">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Buscar na VivaBem..."
+                  value={searchQuery}
+                  onChange={(e) => onSearchChange(e.target.value)}
+                  className="w-full bg-[#EFEFEF] hover:bg-[#E8E8E8] focus:bg-white text-slate-900 placeholder:text-slate-500 pl-4 pr-10 py-2.5 rounded-full border border-transparent focus:border-slate-300 text-sm transition-all outline-none"
+                />
+                <button 
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-600 hover:text-red-600"
+                  aria-label="Buscar"
+                >
+                  <Search className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* 4 Action Items */}
+            <div className="flex items-center gap-5 xl:gap-7 flex-shrink-0">
+              {/* Compra rápida */}
+              <button
+                onClick={onOpenPrescription}
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group cursor-pointer"
+              >
+                <div className="text-red-700 group-hover:scale-105 transition-transform">
+                  <FileText className="w-6 h-6 stroke-[1.8]" />
+                </div>
+                <div className="leading-tight">
+                  <span className="text-[11px] text-slate-500 block">Compra rápida</span>
+                  <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">com receita</span>
+                </div>
+              </button>
+
+              {/* Boas-vindas! Entrar ou cadastrar */}
+              <button
+                onClick={onOpenAuth}
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group cursor-pointer"
+              >
+                <div className="text-red-700 group-hover:scale-105 transition-transform">
+                  <User className="w-6 h-6 stroke-[1.8]" />
+                </div>
+                <div className="leading-tight">
+                  <span className="text-[11px] text-slate-500 block">Boas-vindas!</span>
+                  <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">Entrar ou cadastrar</span>
+                </div>
+              </button>
+
+              {/* Acompanhar pedidos */}
+              <button
+                onClick={onOpenOrders}
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group cursor-pointer"
+              >
+                <div className="text-red-700 group-hover:scale-105 transition-transform">
+                  <Package className="w-6 h-6 stroke-[1.8]" />
+                </div>
+                <div className="leading-tight">
+                  <span className="text-[11px] text-slate-500 block">Acompanhar</span>
+                  <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">pedidos</span>
+                </div>
+              </button>
+
+              {/* Cesta */}
+              <button
+                onClick={onOpenCart}
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity text-left group relative cursor-pointer"
+              >
+                <div className="text-red-700 group-hover:scale-105 transition-transform relative">
+                  <ShoppingBasket className="w-6 h-6 stroke-[1.8]" />
+                  {totalItemsCount > 0 && (
+                    <span className="absolute -top-1.5 -right-2 bg-red-600 text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
+                      {totalItemsCount}
+                    </span>
+                  )}
+                </div>
+                <div className="leading-tight">
+                  <span className="text-[11px] text-slate-500 block">Cesta</span>
+                  <span className="text-xs font-bold text-slate-900 block whitespace-nowrap">
+                    {totalPrice > 0 ? `R$ ${totalPrice.toFixed(2).replace('.', ',')}` : 'R$ 0,00'}
+                  </span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Category Horizontal Ribbon on Desktop */}
+        <nav className="border-t border-slate-200 bg-white">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex items-center gap-1 overflow-x-auto py-2 scrollbar-none text-xs font-semibold text-slate-600">
+              {categories.map((cat) => {
+                const active = selectedCategory === cat.id;
+                const Icon = cat.icon;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => onSelectCategory(cat.id)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md whitespace-nowrap transition-colors cursor-pointer ${
+                      active 
+                        ? 'bg-red-600 text-white font-bold' 
+                        : 'hover:bg-slate-100 text-slate-700 hover:text-red-700'
+                    }`}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                    <span>{cat.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      {/* Mobile Drawer Menu (When hamburger clicked) */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-3 shadow-lg">
+        <div className="lg:hidden bg-white border-b border-slate-200 px-4 py-4 space-y-3 shadow-xl">
           <div className="grid grid-cols-2 gap-2 pb-3 border-b border-slate-100">
             <button
               onClick={() => { onOpenAuth(); setMobileMenuOpen(false); }}

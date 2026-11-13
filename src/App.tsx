@@ -4,6 +4,7 @@ import { Product, CartItem } from './types';
 import { Navbar } from './components/Navbar';
 import { HeroSlider } from './components/HeroSlider';
 import { BenefitStrip } from './components/BenefitStrip';
+import { StoryCategoryBubbles } from './components/StoryCategoryBubbles';
 import { ProductCard } from './components/ProductCard';
 import { ProductCarousel } from './components/ProductCarousel';
 import { CareBannerCarousel } from './components/CareBannerCarousel';
@@ -156,9 +157,12 @@ export const App: React.FC = () => {
         onSelectCategory={setSelectedCategory}
       />
 
-      {/* Hero Banner Slider & Quick Access */}
+      {/* Story Category Bubbles (Exact Rosário Aesthetic) & Hero Banner */}
       {selectedCategory === 'todos' && !searchQuery && (
         <>
+          <div className="max-w-7xl mx-auto px-2 sm:px-4">
+            <StoryCategoryBubbles onSelectCategory={setSelectedCategory} />
+          </div>
           <HeroSlider
             onOpenPrescription={() => setIsPrescriptionOpen(true)}
             onSelectCategory={setSelectedCategory}
@@ -176,12 +180,12 @@ export const App: React.FC = () => {
         {/* If user is browsing home (todos and no search) show Carousels with Drogasil Arrows */}
         {selectedCategory === 'todos' && !searchQuery ? (
           <>
-            {/* CAROUSEL 1: Esquenta Black Friday com até 70% (with ← and → arrows) */}
+            {/* CAROUSEL 1: Os mais escolhidos (Exact Rosário Title with ← and → arrows) */}
             <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
               <ProductCarousel
-                title="Esquenta Black Friday com até 70%"
-                subtitle={`Descontos imperdíveis com entrega rápida em ${selectedCity} e Grande Vitória`}
-                badge="Black Friday"
+                title="Os mais escolhidos"
+                subtitle={`Os itens favoritos e mais procurados pelos capixabas em ${selectedCity}`}
+                badge="Esquenta Black"
                 products={blackFridayDeals}
                 onAddToCart={handleAddToCart}
                 cartItems={cartItems}
