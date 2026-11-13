@@ -180,8 +180,8 @@ export const App: React.FC = () => {
         {/* If user is browsing home (todos and no search) show Carousels with Drogasil Arrows */}
         {selectedCategory === 'todos' && !searchQuery ? (
           <>
-            {/* CAROUSEL 1: Os mais escolhidos (Exact Rosário Title with ← and → arrows) */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+            {/* CAROUSEL 1: Os mais escolhidos (Borda apenas nos itens) */}
+            <div className="py-1">
               <ProductCarousel
                 title="Os mais escolhidos"
                 subtitle={`Os itens favoritos e mais procurados pelos capixabas em ${selectedCity}`}
@@ -193,8 +193,8 @@ export const App: React.FC = () => {
               />
             </div>
 
-            {/* CAROUSEL 2: Mais Comprados no Espírito Santo (with ← and → arrows) */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+            {/* CAROUSEL 2: Mais Comprados no Espírito Santo (Borda apenas nos itens) */}
+            <div className="py-1">
               <ProductCarousel
                 title="Mais Comprados da Farmácia"
                 subtitle={`Os itens mais vendidos e procurados pelas famílias de ${selectedCity} e todo o ES`}
@@ -205,13 +205,13 @@ export const App: React.FC = () => {
               />
             </div>
 
-            {/* EDITORIAL CAROUSEL: Cuidados que você merece (Exact Drogasil Lifestyle Banners) */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+            {/* EDITORIAL CAROUSEL: Cuidados que você merece (Borda apenas nos itens) */}
+            <div className="py-1">
               <CareBannerCarousel onSelectCategory={setSelectedCategory} />
             </div>
 
-            {/* SERVICES CAROUSEL: Espaço Mais Saúde (Exact Drogasil Health Space) */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+            {/* SERVICES CAROUSEL: Espaço Mais Saúde (Borda apenas nos itens) */}
+            <div className="py-1">
               <HealthServicesCarousel
                 onScheduleService={(service) => {
                   const msg = encodeURIComponent(`Olá! Gostaria de agendar o atendimento de ${service} na Farmácia VivaBem.`);
@@ -220,8 +220,8 @@ export const App: React.FC = () => {
               />
             </div>
 
-            {/* CAROUSEL 3: Sugestões para você (Personalized recommendations with ← and → arrows) */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+            {/* CAROUSEL 3: Sugestões para você (Borda apenas nos itens) */}
+            <div className="py-1">
               <ProductCarousel
                 title="Sugestões para você"
                 subtitle={`Recomendações personalizadas com base nos produtos mais procurados em ${selectedCity}`}
@@ -232,8 +232,8 @@ export const App: React.FC = () => {
               />
             </div>
 
-            {/* CAROUSEL 4: Dermocosméticos e Cuidados Diários (with ← and → arrows) */}
-            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+            {/* CAROUSEL 4: Dermocosméticos e Cuidados Diários (Borda apenas nos itens) */}
+            <div className="py-1">
               <ProductCarousel
                 title="Dermocosméticos e Cuidados Pessoais"
                 subtitle="Proteção solar, hidratação profunda e higiene completa"
