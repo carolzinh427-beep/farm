@@ -1,6 +1,6 @@
 import React from 'react';
 import { Product } from '../types';
-import { Star, FileText, ArrowDown, Plus, Check, Sparkles } from 'lucide-react';
+import { FileText, ArrowDown, Plus, Check } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -99,32 +99,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, 
               {product.dosage}
             </p>
           )}
-
-          {/* Social Proof ("32 querem" / "142 compraram") OR Star Rating */}
-          <div className="mt-1">
-            {product.socialProof ? (
-              <div className="flex items-center gap-1 text-[9px] sm:text-[10px] text-amber-600 font-bold">
-                <Sparkles className="w-2.5 h-2.5 text-amber-500 fill-amber-400 shrink-0" />
-                <span className="truncate">{product.socialProof}</span>
-              </div>
-            ) : (
-              <div className="flex items-center gap-1 text-[9px] sm:text-[10px]">
-                <div className="flex text-amber-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-2 h-2 sm:w-2.5 sm:h-2.5 ${
-                        i < Math.floor(product.rating)
-                          ? 'fill-amber-400 text-amber-400'
-                          : 'text-slate-200'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-slate-500 font-bold">({product.reviewsCount})</span>
-              </div>
-            )}
-          </div>
 
           {product.requiresPrescription && (
             <div className="mt-1 inline-flex items-center gap-0.5 text-[8px] sm:text-[9px] text-amber-800 bg-amber-50 border border-amber-200 px-1 py-0.5 rounded font-medium">
