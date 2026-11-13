@@ -66,8 +66,11 @@ export const BenefitStrip: React.FC<BenefitStripProps> = ({
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-3 sm:pt-4">
-      <div className="flex sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-2.5 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 pt-2 sm:pt-3 w-full overflow-hidden">
+      <div 
+        className="flex sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-2.5 overflow-x-auto pb-2 sm:pb-0 scrollbar-none touch-pan-x w-full"
+        style={{ overscrollBehaviorX: 'contain' }}
+      >
         {benefits.map((item) => {
           const Icon = item.icon;
           return (

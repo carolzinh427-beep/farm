@@ -132,7 +132,7 @@ export const App: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 pb-16 md:pb-0">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 pb-20 md:pb-0 overflow-x-hidden w-full max-w-full relative">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-20 md:bottom-6 right-6 z-50 bg-slate-900 text-white font-bold text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 border border-slate-700 animate-in fade-in slide-in-from-bottom-2">
@@ -172,7 +172,7 @@ export const App: React.FC = () => {
       )}
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 py-3 sm:py-5 flex-1 w-full space-y-6 sm:space-y-8">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 py-2 sm:py-4 flex-1 w-full max-w-full space-y-4 sm:space-y-6 overflow-hidden sm:overflow-visible">
         {/* If user is browsing home (todos and no search) show Carousels with Drogasil Arrows */}
         {selectedCategory === 'todos' && !searchQuery ? (
           <>
