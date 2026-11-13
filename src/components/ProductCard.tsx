@@ -132,18 +132,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, 
               {product.tieredPricing}
             </span>
           )}
-
-          {/* Quick Buy Button on bottom */}
-          <button
-            onClick={() => onAddToCart(product)}
-            className={`w-full mt-2 py-1 sm:py-1.5 px-2 rounded-md font-bold text-[10px] sm:text-[11px] flex items-center justify-center gap-1 transition-all ${
-              isInCart
-                ? 'bg-emerald-700 hover:bg-emerald-800 text-white'
-                : 'bg-red-600 hover:bg-red-700 text-white active:scale-98 shadow-xs'
-            }`}
-          >
-            {isInCart ? 'Adicionado' : 'Comprar'}
-          </button>
         </div>
       </div>
     </div>
