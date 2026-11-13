@@ -7,6 +7,7 @@ import { BenefitStrip } from './components/BenefitStrip';
 import { ProductCard } from './components/ProductCard';
 import { ProductCarousel } from './components/ProductCarousel';
 import { CareBannerCarousel } from './components/CareBannerCarousel';
+import { HealthServicesCarousel } from './components/HealthServicesCarousel';
 import { CartDrawer } from './components/CartDrawer';
 import { PrescriptionModal } from './components/PrescriptionModal';
 import { LocationModal } from './components/LocationModal';
@@ -107,6 +108,14 @@ export const App: React.FC = () => {
     return PRODUCTS.filter((p) => p.category === 'dermocosmeticos' || p.category === 'cuidados');
   }, []);
 
+  // Personalized suggestions for user
+  const suggestedProducts = useMemo(() => {
+    const recOrder = ['6', '5', '3', '4', '1', '7', '10', '11', '9', '2', '12', '8'];
+    return recOrder
+      .map((id) => PRODUCTS.find((p) => p.id === id))
+      .filter((p): p is Product => Boolean(p));
+  }, []);
+
   const totalItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const brands = [
@@ -195,7 +204,29 @@ export const App: React.FC = () => {
               <CareBannerCarousel onSelectCategory={setSelectedCategory} />
             </div>
 
-            {/* CAROUSEL 3: Dermocosméticos e Cuidados Diários (with ← and → arrows) */}
+            {/* SERVICES CAROUSEL: Espaço Mais Saúde (Exact Drogasil Health Space) */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+              <HealthServicesCarousel
+                onScheduleService={(service) => {
+                  const msg = encodeURIComponent(`Olá! Gostaria de agendar o atendimento de ${service} na Farmácia VivaBem.`);
+                  window.open(`https://wa.me/5527999990000?text=${msg}`, '_blank');
+                }}
+              />
+            </div>
+
+            {/* CAROUSEL 3: Sugestões para você (Personalized recommendations with ← and → arrows) */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+              <ProductCarousel
+                title="Sugestões para você"
+                subtitle={`Recomendações personalizadas com base nos produtos mais procurados em ${selectedCity}`}
+                badge="Para Você"
+                products={suggestedProducts}
+                onAddToCart={handleAddToCart}
+                cartItems={cartItems}
+              />
+            </div>
+
+            {/* CAROUSEL 4: Dermocosméticos e Cuidados Diários (with ← and → arrows) */}
             <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
               <ProductCarousel
                 title="Dermocosméticos e Cuidados Pessoais"
