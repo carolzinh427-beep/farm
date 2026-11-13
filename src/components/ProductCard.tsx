@@ -1,6 +1,6 @@
 import React from 'react';
 import { Product } from '../types';
-import { Star, FileText, ArrowDown, Plus, Check } from 'lucide-react';
+import { Star, FileText, ArrowDown, Plus, Check, Sparkles } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -10,35 +10,57 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, isInCart = false }) => {
   return (
-    <div className="bg-white rounded-lg sm:rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden group h-full">
+    <div className="bg-white rounded-lg sm:rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden group h-full relative">
       {/* Top badges & Image */}
       <div className="p-1.5 sm:p-2.5 pb-0 relative">
-        {/* Discount & Generic Badges */}
-        <div className="flex items-center justify-between gap-1 h-5">
-          {product.isGeneric ? (
-            <span className="bg-amber-400 text-slate-900 font-extrabold text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded uppercase tracking-wider">
-              Genérico
-            </span>
-          ) : (
-            <span />
-          )}
+        {/* Top Badges Row */}
+        <div className="flex items-center justify-between gap-1 min-h-[20px] mb-1">
+          <div className="flex items-center gap-1 overflow-hidden">
+            {product.exclusiveBrand ? (
+              <span className="border border-red-700/50 text-red-700 text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5 rounded-full truncate leading-none">
+                Marca exclusiva
+              </span>
+            ) : product.optionsCount ? (
+              <span className="bg-slate-100 text-slate-600 text-[8px] sm:text-[9px] font-semibold px-1.5 py-0.5 rounded-full truncate leading-none">
+                {product.optionsCount} opções
+              </span>
+            ) : product.isGeneric ? (
+              <span className="bg-amber-400 text-slate-900 font-extrabold text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded uppercase tracking-wider leading-none">
+                Genérico
+              </span>
+            ) : product.tag ? (
+              <span className="bg-black text-white text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5 rounded-full truncate leading-none">
+                {product.tag}
+              </span>
+            ) : (
+              <span />
+            )}
+          </div>
 
+          {/* Discount badge */}
           {product.discountPercentage ? (
-            <span className="bg-emerald-700 text-white font-extrabold text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-md flex items-center gap-0.5 shadow-xs ml-auto">
+            <span className="bg-emerald-700 text-white font-extrabold text-[8px] sm:text-[9px] px-1.5 py-0.5 rounded-md flex items-center gap-0.5 shadow-xs shrink-0 leading-none">
               <ArrowDown className="w-2.5 h-2.5 stroke-[3]" />
               <span>{product.discountPercentage}%</span>
             </span>
           ) : null}
         </div>
 
-        {/* Real Product Image Container with Floating Red '+' Button */}
-        <div className="relative aspect-square w-full mt-1 bg-white flex items-center justify-center p-1 sm:p-2">
+        {/* Real Product Image Container */}
+        <div className="relative aspect-square w-full mt-0.5 bg-white flex items-center justify-center p-1 sm:p-2">
           <img
             src={product.image}
             alt={product.name}
             className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-200"
             loading="lazy"
           />
+
+          {/* Optional Vertical Badge on the Right (e.g. SHAMPOO / HIGIENE / DERMO) */}
+          {product.verticalBadge && (
+            <span className="absolute top-1 right-0 bg-[#0F5132] text-white text-[7px] sm:text-[8px] font-black uppercase tracking-widest px-0.5 sm:px-1 py-1 rounded-l [writing-mode:vertical-rl] rotate-180 shadow-xs pointer-events-none">
+              {product.verticalBadge}
+            </span>
+          )}
 
           {/* Floating Round Red '+' Button (Exact Drogasil Style) */}
           <button
@@ -66,13 +88,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, 
       {/* Product Information */}
       <div className="p-1.5 sm:p-2.5 pt-1.5 flex-1 flex flex-col justify-between">
         <div>
-          {/* Black Badge: Oferta do Dia */}
-          <div className="mb-1">
-            <span className="bg-black text-white text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5 rounded-full inline-block">
-              {product.tag || 'Oferta do Dia'}
-            </span>
-          </div>
-
           {/* Product Name */}
           <h3 className="text-[11px] sm:text-xs font-semibold text-slate-900 line-clamp-2 leading-snug group-hover:text-red-600 transition-colors">
             {product.name}
@@ -85,19 +100,30 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, 
             </p>
           )}
 
-          {/* Star Rating and Count */}
-          <div className="flex items-center gap-1 mt-1 text-[9px] sm:text-[10px]">
-            <div className="flex text-amber-400">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`w-2.5 h-2.5 ${
-                    i < Math.floor(product.rating) ? 'fill-amber-400 text-amber-400' : 'text-slate-300'
-                  }`}
-                />
-              ))}
-            </div>
-            <span className="text-amber-600 font-bold">({product.reviewsCount})</span>
+          {/* Social Proof ("32 querem" / "142 compraram") OR Star Rating */}
+          <div className="mt-1">
+            {product.socialProof ? (
+              <div className="flex items-center gap-1 text-[9px] sm:text-[10px] text-amber-600 font-bold">
+                <Sparkles className="w-2.5 h-2.5 text-amber-500 fill-amber-400 shrink-0" />
+                <span className="truncate">{product.socialProof}</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1 text-[9px] sm:text-[10px]">
+                <div className="flex text-amber-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`w-2 h-2 sm:w-2.5 sm:h-2.5 ${
+                        i < Math.floor(product.rating)
+                          ? 'fill-amber-400 text-amber-400'
+                          : 'text-slate-200'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <span className="text-slate-500 font-bold">({product.reviewsCount})</span>
+              </div>
+            )}
           </div>
 
           {product.requiresPrescription && (
@@ -121,11 +147,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, 
           )}
 
           <div className="flex items-baseline gap-1 leading-none">
-            <span className="text-[9px] sm:text-[10px] font-bold text-slate-500">Por</span>
             <span className="text-xs sm:text-sm md:text-base font-black text-slate-900">
               R$ {product.price.toFixed(2).replace('.', ',')}
             </span>
           </div>
+
+          {/* Tiered pricing note (e.g. 'a partir de 3 itens') */}
+          {product.tieredPricing && (
+            <span className="text-[8px] sm:text-[9px] text-slate-400 block mt-0.5 truncate">
+              {product.tieredPricing}
+            </span>
+          )}
 
           {/* Quick Buy Button on bottom */}
           <button

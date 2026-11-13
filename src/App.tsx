@@ -94,6 +94,14 @@ export const App: React.FC = () => {
     return [...PRODUCTS].sort((a, b) => b.reviewsCount - a.reviewsCount);
   }, []);
 
+  // Most purchased items with social proof & high daily demand
+  const mostPurchased = useMemo(() => {
+    const priorityOrder = ['1', '2', '5', '4', '7', '9', '6', '3', '10', '11', '12', '8'];
+    return priorityOrder
+      .map((id) => PRODUCTS.find((p) => p.id === id))
+      .filter((p): p is Product => Boolean(p));
+  }, []);
+
   const dermocareProducts = useMemo(() => {
     return PRODUCTS.filter((p) => p.category === 'dermocosmeticos' || p.category === 'cuidados');
   }, []);
@@ -169,12 +177,13 @@ export const App: React.FC = () => {
               />
             </div>
 
-            {/* CAROUSEL 2: Mais Vendidos da Farmácia (with ← and → arrows) */}
+            {/* CAROUSEL 2: Mais Comprados no Espírito Santo (with ← and → arrows) */}
             <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
               <ProductCarousel
-                title="Mais Vendidos da VivaBem"
-                subtitle="Os produtos favoritos das famílias capixabas"
-                products={bestSellers}
+                title="Mais Comprados da Farmácia"
+                subtitle={`Os itens mais vendidos e procurados pelas famílias de ${selectedCity} e todo o ES`}
+                badge="Mais Pedidos"
+                products={mostPurchased}
                 onAddToCart={handleAddToCart}
                 cartItems={cartItems}
               />

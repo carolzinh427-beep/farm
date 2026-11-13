@@ -16,7 +16,10 @@ export const PRODUCTS: Product[] = [
     isGeneric: true,
     requiresPrescription: false,
     stockCount: 85,
-    tag: 'Mais Vendido ES'
+    tag: 'Mais Vendido ES',
+    optionsCount: 3,
+    socialProof: '142 compraram hoje',
+    tieredPricing: 'a partir de 3 un.'
   },
   {
     id: '2',
@@ -32,7 +35,9 @@ export const PRODUCTS: Product[] = [
     image: '/products/dorflex.webp',
     requiresPrescription: false,
     stockCount: 110,
-    tag: 'Alívio Rápido'
+    tag: 'Alívio Rápido',
+    optionsCount: 2,
+    socialProof: '89 compraram hoje'
   },
   {
     id: '3',
@@ -48,7 +53,8 @@ export const PRODUCTS: Product[] = [
     image: '/products/redoxon.webp',
     requiresPrescription: false,
     stockCount: 42,
-    tag: 'Imunidade'
+    tag: 'Imunidade',
+    socialProof: '32 querem'
   },
   {
     id: '4',
@@ -64,7 +70,10 @@ export const PRODUCTS: Product[] = [
     image: '/products/listerine.webp',
     requiresPrescription: false,
     stockCount: 65,
-    tag: 'Higiene Bucal'
+    tag: 'Higiene Bucal',
+    exclusiveBrand: true,
+    verticalBadge: 'HIGIENE',
+    socialProof: '54 querem'
   },
   {
     id: '5',
@@ -80,7 +89,9 @@ export const PRODUCTS: Product[] = [
     image: '/products/cerave.webp',
     requiresPrescription: false,
     stockCount: 19,
-    tag: 'Dermatológico'
+    tag: 'Dermatológico',
+    verticalBadge: 'DERMO',
+    socialProof: '28 querem'
   },
   {
     id: '6',
@@ -96,7 +107,9 @@ export const PRODUCTS: Product[] = [
     image: '/products/anthelios.webp',
     requiresPrescription: false,
     stockCount: 28,
-    tag: 'Verão Capixaba'
+    tag: 'Verão Capixaba',
+    verticalBadge: 'SOLAR',
+    socialProof: '45 querem'
   },
   {
     id: '7',
@@ -112,7 +125,10 @@ export const PRODUCTS: Product[] = [
     image: '/products/pampers.webp',
     requiresPrescription: false,
     stockCount: 35,
-    tag: 'Leve Mais Por Menos'
+    tag: 'Leve Mais Por Menos',
+    optionsCount: 4,
+    socialProof: '96 querem',
+    tieredPricing: 'a partir de 2 pacotes'
   },
   {
     id: '8',
@@ -145,7 +161,9 @@ export const PRODUCTS: Product[] = [
     image: '/products/neosaldina.webp',
     requiresPrescription: false,
     stockCount: 90,
-    tag: 'Dores de Cabeça'
+    tag: 'Dores de Cabeça',
+    optionsCount: 3,
+    socialProof: '67 compraram hoje'
   },
   {
     id: '10',
@@ -161,7 +179,9 @@ export const PRODUCTS: Product[] = [
     image: '/products/effaclar.webp',
     requiresPrescription: false,
     stockCount: 31,
-    tag: 'Anti-oleosidade'
+    tag: 'Anti-oleosidade',
+    verticalBadge: 'LIMPEZA',
+    socialProof: '19 querem'
   },
   {
     id: '11',
@@ -177,7 +197,8 @@ export const PRODUCTS: Product[] = [
     image: '/products/omega3.webp',
     requiresPrescription: false,
     stockCount: 22,
-    tag: 'Coração Saudável'
+    tag: 'Coração Saudável',
+    socialProof: '14 querem'
   },
   {
     id: '12',
@@ -193,7 +214,9 @@ export const PRODUCTS: Product[] = [
     image: '/products/nan.webp',
     requiresPrescription: false,
     stockCount: 40,
-    tag: 'Nutrição Infantil'
+    tag: 'Nutrição Infantil',
+    optionsCount: 2,
+    socialProof: '25 querem'
   }
 ];
 

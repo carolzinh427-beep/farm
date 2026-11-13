@@ -14,9 +14,13 @@ export interface Product {
   requiresPrescription?: boolean;
   stockCount: number;
   tag?: string;
+  exclusiveBrand?: boolean;
+  optionsCount?: number;
+  socialProof?: string;
+  verticalBadge?: string;
+  tieredPricing?: string;
 }
 
 export interface CartItem extends Product {
   quantity: number;
 }
-
