@@ -132,7 +132,7 @@ export const Footer: React.FC = () => {
               © 2026 Farmácia VivaBem Espírito Santo. Todos os direitos reservados.
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-emerald-400 font-semibold">Cuidando com carinho das famílias capixabas 💚❤️</span>
+              <span className="text-emerald-400 font-semibold">Cuidando da saúde das famílias capixabas</span>
             </div>
           </div>
         </div>

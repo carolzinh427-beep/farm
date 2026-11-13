@@ -3,21 +3,23 @@ import { PRODUCTS, ES_CITIES } from './data/products';
 import { Product, CartItem } from './types';
 import { Navbar } from './components/Navbar';
 import { HeroSlider } from './components/HeroSlider';
+import { CategoryCircles } from './components/CategoryCircles';
 import { ProductCard } from './components/ProductCard';
 import { CartDrawer } from './components/CartDrawer';
 import { PrescriptionModal } from './components/PrescriptionModal';
 import { LocationModal } from './components/LocationModal';
 import { Footer } from './components/Footer';
 import { 
-  Sparkles, 
-  Flame, 
   Clock, 
   ChevronRight, 
   ShieldCheck, 
-  HeartHandshake, 
-  FileCheck,
   CheckCircle,
-  Truck
+  FileText,
+  Home,
+  Grid,
+  ShoppingCart,
+  PhoneCall,
+  Search
 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -42,8 +44,8 @@ export const App: React.FC = () => {
       return [...prev, { ...product, quantity: 1 }];
     });
 
-    setToastMessage(`"${product.name.slice(0, 28)}..." adicionado à cesta!`);
-    setTimeout(() => setToastMessage(null), 3000);
+    setToastMessage(`Item adicionado à cesta!`);
+    setTimeout(() => setToastMessage(null), 2500);
   };
 
   const handleUpdateQuantity = (id: string, delta: number) => {
@@ -64,7 +66,7 @@ export const App: React.FC = () => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // Filtered products based on search & category
+  // Filtered products
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((product) => {
       const matchesSearch =
@@ -84,32 +86,30 @@ export const App: React.FC = () => {
     return PRODUCTS.filter((p) => p.discountPercentage && p.discountPercentage >= 25);
   }, []);
 
-  const generics = useMemo(() => {
-    return PRODUCTS.filter((p) => p.isGeneric);
-  }, []);
+  const totalItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const brands = [
-    { name: 'EMS Genéricos', logo: '💊 EMS' },
-    { name: 'Medley', logo: '⚕️ Medley' },
-    { name: 'Eurofarma', logo: '💉 Eurofarma' },
-    { name: 'La Roche-Posay', logo: '✨ La Roche' },
-    { name: 'CeraVe', logo: '🧴 CeraVe' },
-    { name: 'Pampers', logo: '👶 Pampers' },
-    { name: 'Sanofi', logo: '❤️ Sanofi' },
-    { name: 'Redoxon', logo: '🍊 Redoxon' }
+    'EMS',
+    'Medley',
+    'Eurofarma',
+    'La Roche-Posay',
+    'CeraVe',
+    'Pampers',
+    'Sanofi',
+    'Redoxon'
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 pb-16 md:pb-0">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-emerald-700 text-white font-bold text-xs px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2 border border-emerald-500 animate-bounce">
-          <CheckCircle className="w-4 h-4 text-emerald-200" />
+        <div className="fixed bottom-20 md:bottom-6 right-6 z-50 bg-slate-900 text-white font-bold text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 border border-slate-700">
+          <CheckCircle className="w-4 h-4 text-emerald-400" />
           <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* Navbar with full features */}
+      {/* Navbar with full Drogasil features */}
       <Navbar
         cartItems={cartItems}
         onOpenCart={() => setIsCartOpen(true)}
@@ -122,7 +122,7 @@ export const App: React.FC = () => {
         onSelectCategory={setSelectedCategory}
       />
 
-      {/* Hero Banner Slider */}
+      {/* Hero Banner Slider (Clean, No Emojis, No Floating Tags) */}
       {selectedCategory === 'todos' && !searchQuery && (
         <HeroSlider
           onOpenPrescription={() => setIsPrescriptionOpen(true)}
@@ -130,60 +130,38 @@ export const App: React.FC = () => {
         />
       )}
 
-      {/* Brands Trust Carousel */}
-      {selectedCategory === 'todos' && !searchQuery && (
-        <div className="max-w-7xl mx-auto px-4 py-6 w-full">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-              Laboratórios & Marcas Oficiais no ES
-            </span>
-            <span className="text-xs text-emerald-700 font-semibold flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5" /> 100% Originais
-            </span>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2">
-            {brands.map((b) => (
-              <div
-                key={b.name}
-                className="bg-white border border-slate-200/80 rounded-xl p-2.5 text-center hover:border-red-400 hover:shadow-xs transition-all cursor-pointer"
-                onClick={() => setSearchQuery(b.name.split(' ')[0])}
-              >
-                <div className="text-xs font-bold text-slate-700 truncate">{b.logo}</div>
-                <div className="text-[10px] text-slate-400 truncate">{b.name}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* Drogasil Visual Navigation: Compre por Categoria (Circles) */}
+      {!searchQuery && (
+        <CategoryCircles
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+          onOpenPrescription={() => setIsPrescriptionOpen(true)}
+        />
       )}
 
-      {/* Lightning Deals Section (Drogasil Style) */}
+      {/* Featured Deals Carousel/Section */}
       {selectedCategory === 'todos' && !searchQuery && (
-        <section className="max-w-7xl mx-auto px-4 py-6 w-full">
-          <div className="bg-gradient-to-r from-red-600 to-rose-700 rounded-3xl p-5 sm:p-7 text-white shadow-lg mb-6">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-amber-300">
-                  <Flame className="w-5 h-5 fill-amber-300" />
-                </div>
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight">
-                    Ofertas Relâmpago do Dia
-                  </h2>
-                  <p className="text-xs text-red-100">
-                    Descontos imperdíveis com entrega expressa em {selectedCity}
-                  </p>
-                </div>
+        <section className="max-w-7xl mx-auto px-4 py-2 sm:py-4 w-full">
+          <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-xs mb-6">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
+              <div>
+                <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
+                  Ofertas em Destaque
+                </h2>
+                <p className="text-xs text-slate-500">
+                  Descontos especiais com entrega rápida em {selectedCity}
+                </p>
               </div>
 
-              {/* Countdown badge */}
-              <div className="flex items-center gap-2 bg-black/30 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-bold text-amber-300">
+              {/* Countdown badge (Drogasil Clean Style) */}
+              <div className="flex items-center gap-2 bg-red-50 text-red-700 px-3 py-1 rounded-md border border-red-200 text-xs font-bold">
                 <Clock className="w-3.5 h-3.5" />
-                <span>Termina em: <strong>04h : 28m : 12s</strong></span>
+                <span>Ofertas válidas por tempo limitado</span>
               </div>
             </div>
 
-            {/* Lightning Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {/* Product Cards Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               {lightningDeals.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -198,25 +176,25 @@ export const App: React.FC = () => {
       )}
 
       {/* Main Catalog View */}
-      <main className="max-w-7xl mx-auto px-4 py-4 flex-1 w-full">
-        <div className="flex items-center justify-between mb-6 pb-3 border-b border-slate-200">
+      <main className="max-w-7xl mx-auto px-4 py-2 flex-1 w-full">
+        <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-200">
           <div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
               {searchQuery
                 ? `Resultados para "${searchQuery}"`
                 : selectedCategory === 'todos'
-                ? 'Todos os Produtos em Destaque'
-                : `Categoria: ${selectedCategory.toUpperCase()}`}
+                ? 'Mais Vendidos da Farmácia'
+                : `Departamento: ${selectedCategory.toUpperCase()}`}
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Exibindo <strong>{filteredProducts.length}</strong> produtos disponíveis para entrega em <strong>{selectedCity} - ES</strong>
+              {filteredProducts.length} produtos disponíveis para entrega em <strong>{selectedCity} - ES</strong>
             </p>
           </div>
 
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-full"
+              className="text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1 rounded"
             >
               Limpar busca
             </button>
@@ -225,23 +203,20 @@ export const App: React.FC = () => {
 
         {/* Product Grid */}
         {filteredProducts.length === 0 ? (
-          <div className="bg-white rounded-3xl p-12 text-center border border-slate-200 space-y-3 my-8">
-            <div className="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto text-2xl">
-              🔍
-            </div>
-            <h3 className="font-extrabold text-slate-800 text-lg">Nenhum produto encontrado</h3>
+          <div className="bg-white rounded-2xl p-10 text-center border border-slate-200 space-y-3 my-6">
+            <h3 className="font-bold text-slate-800 text-base">Nenhum produto encontrado</h3>
             <p className="text-slate-500 text-xs max-w-sm mx-auto">
               Não encontramos o item buscado no catálogo online. Você pode enviar sua receita diretamente para nosso WhatsApp!
             </p>
             <button
               onClick={() => setIsPrescriptionOpen(true)}
-              className="mt-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-full shadow"
+              className="mt-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-xs"
             >
               Consultar Farmacêutico no WhatsApp
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
@@ -253,31 +228,52 @@ export const App: React.FC = () => {
           </div>
         )}
 
-        {/* Special Banner: Farmácia Popular & Receitas */}
-        <div className="mt-12 bg-emerald-800 rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-xl">
-          <div className="relative z-10 max-w-2xl space-y-3">
-            <span className="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-extrabold text-amber-300 inline-flex items-center gap-1.5">
-              <FileCheck className="w-3.5 h-3.5" />
-              CONVÊNIO MINISTÉRIO DA SAÚDE
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold leading-tight">
+        {/* Brands Carousel (Clean Text Badges) */}
+        {selectedCategory === 'todos' && !searchQuery && (
+          <div className="mt-10 pt-6 border-t border-slate-200">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                Marcas e Laboratórios Oficiais
+              </span>
+              <span className="text-xs text-slate-500 flex items-center gap-1 font-medium">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Procedência Garantida
+              </span>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2">
+              {brands.map((b) => (
+                <div
+                  key={b}
+                  className="bg-white border border-slate-200 rounded-lg p-2.5 text-center hover:border-slate-300 transition-colors cursor-pointer"
+                  onClick={() => setSearchQuery(b)}
+                >
+                  <div className="text-xs font-bold text-slate-800 truncate">{b}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Institutional Banner: Farmácia Popular (Clean Drogasil Corporate Design) */}
+        <div className="mt-8 bg-emerald-900 rounded-2xl p-5 sm:p-7 text-white shadow-xs">
+          <div className="max-w-2xl space-y-2">
+            <h3 className="text-xl sm:text-2xl font-black leading-tight">
               Programa Farmácia Popular no Espírito Santo
             </h3>
             <p className="text-emerald-100 text-xs sm:text-sm leading-relaxed">
-              Pegue medicamentos para Hipertensão, Diabetes, Asma, Osteoporose e Anticoncepcionais com até 100% de gratuidade em nossas lojas de Vitória, Vila Velha e Serra.
+              Retire medicamentos para Hipertensão, Diabetes, Asma, Osteoporose e Anticoncepcionais com gratuidade pelo SUS em nossas lojas de Vitória, Vila Velha e Serra.
             </p>
-            <div className="pt-2 flex flex-wrap gap-3">
+            <div className="pt-2 flex flex-wrap gap-2.5">
               <button
                 onClick={() => setIsPrescriptionOpen(true)}
-                className="bg-white hover:bg-slate-100 text-emerald-900 font-extrabold text-xs px-5 py-3 rounded-full shadow transition-all"
+                className="bg-white hover:bg-slate-100 text-emerald-900 font-bold text-xs px-4 py-2.5 rounded-lg transition-colors"
               >
                 Enviar Receita pelo WhatsApp
               </button>
               <button
                 onClick={() => setIsLocationOpen(true)}
-                className="bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs px-5 py-3 rounded-full border border-emerald-500/40 transition-all"
+                className="bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-lg border border-emerald-600/40 transition-colors"
               >
-                Encontrar Loja VivaBem no ES
+                Nossas Lojas no ES
               </button>
             </div>
           </div>
@@ -309,10 +305,54 @@ export const App: React.FC = () => {
         onSelectCity={setSelectedCity}
       />
 
-      {/* Regulatory Footer */}
+      {/* Footer */}
       <Footer />
+
+      {/* Mobile App-Style Bottom Navigation Bar (Drogasil Signature Mobile Feature) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 px-3 py-2 flex items-center justify-around shadow-lg">
+        <button
+          onClick={() => { setSelectedCategory('todos'); setSearchQuery(''); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+          className="flex flex-col items-center gap-0.5 text-slate-600 hover:text-red-600 focus:text-red-600"
+        >
+          <Home className="w-5 h-5" />
+          <span className="text-[10px] font-semibold">Início</span>
+        </button>
+
+        <button
+          onClick={() => {
+            const searchInput = document.querySelector('input[type="text"]') as HTMLInputElement;
+            if (searchInput) searchInput.focus();
+          }}
+          className="flex flex-col items-center gap-0.5 text-slate-600 hover:text-red-600"
+        >
+          <Search className="w-5 h-5" />
+          <span className="text-[10px] font-semibold">Buscar</span>
+        </button>
+
+        <button
+          onClick={() => setIsPrescriptionOpen(true)}
+          className="flex flex-col items-center gap-0.5 text-emerald-800 hover:text-emerald-900"
+        >
+          <FileText className="w-5 h-5 text-emerald-700" />
+          <span className="text-[10px] font-bold">Receita</span>
+        </button>
+
+        <button
+          onClick={() => setIsCartOpen(true)}
+          className="flex flex-col items-center gap-0.5 text-slate-600 hover:text-red-600 relative"
+        >
+          <div className="relative">
+            <ShoppingCart className="w-5 h-5" />
+            {totalItemsCount > 0 && (
+              <span className="absolute -top-1.5 -right-2 bg-red-600 text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
+                {totalItemsCount}
+              </span>
+            )}
+          </div>
+          <span className="text-[10px] font-semibold">Cesta</span>
+        </button>
+      </div>
     </div>
   );
 };
 export default App;
-

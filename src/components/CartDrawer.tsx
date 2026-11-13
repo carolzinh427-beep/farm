@@ -134,7 +134,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   </div>
                   <div className="text-emerald-700 text-[11px]">
                     {subtotal >= 79 
-                      ? '🎉 Parabéns! Você ganhou Frete Grátis!' 
+                      ? 'Parabéns! Você ganhou Frete Grátis.' 
                       : `Faltam R$ ${(79 - subtotal).toFixed(2).replace('.', ',')} para Frete Grátis.`}
                   </div>
                 </div>
