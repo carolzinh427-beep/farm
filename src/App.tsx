@@ -8,6 +8,8 @@ import { ProductCard } from './components/ProductCard';
 import { ProductCarousel } from './components/ProductCarousel';
 import { CareBannerCarousel } from './components/CareBannerCarousel';
 import { HealthServicesCarousel } from './components/HealthServicesCarousel';
+import { BlackFridayCampaignCards } from './components/BlackFridayCampaignCards';
+import { EcosystemCards } from './components/EcosystemCards';
 import { CartDrawer } from './components/CartDrawer';
 import { PrescriptionModal } from './components/PrescriptionModal';
 import { LocationModal } from './components/LocationModal';
@@ -258,6 +260,19 @@ export const App: React.FC = () => {
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* BLACK VIVABEM CAMPAIGN CARDS (Promoção de Ofertas) */}
+            <div className="pt-2">
+              <BlackFridayCampaignCards onSelectCategory={setSelectedCategory} />
+            </div>
+
+            {/* ECOSYSTEM CARDS: Manipulação, Blog, VivaBem Especialidades, Dose Certa */}
+            <div className="pt-2">
+              <EcosystemCards
+                onOpenPrescription={() => setIsPrescriptionOpen(true)}
+                onSelectCategory={setSelectedCategory}
+              />
             </div>
           </>
         ) : (
