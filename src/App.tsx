@@ -5,6 +5,7 @@ import { Navbar } from './components/Navbar';
 import { HeroSlider } from './components/HeroSlider';
 import { BenefitStrip } from './components/BenefitStrip';
 import { ProductCard } from './components/ProductCard';
+import { ProductCarousel } from './components/ProductCarousel';
 import { CartDrawer } from './components/CartDrawer';
 import { PrescriptionModal } from './components/PrescriptionModal';
 import { LocationModal } from './components/LocationModal';
@@ -12,11 +13,8 @@ import { AuthModal } from './components/AuthModal';
 import { OrdersModal } from './components/OrdersModal';
 import { Footer } from './components/Footer';
 import { 
-  Clock, 
-  ChevronRight, 
   ShieldCheck, 
   CheckCircle,
-  FileText,
   Home,
   Grid,
   ShoppingCart,
@@ -70,7 +68,7 @@ export const App: React.FC = () => {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // Filtered products
+  // Filtered products for search or category selection
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter((product) => {
       const matchesSearch =
@@ -86,8 +84,18 @@ export const App: React.FC = () => {
     });
   }, [searchQuery, selectedCategory]);
 
-  const lightningDeals = useMemo(() => {
-    return PRODUCTS.filter((p) => p.discountPercentage && p.discountPercentage >= 20).slice(0, 6);
+  // Carousels data
+  const blackFridayDeals = useMemo(() => {
+    // Sort by discount percentage descending
+    return [...PRODUCTS].sort((a, b) => (b.discountPercentage || 0) - (a.discountPercentage || 0));
+  }, []);
+
+  const bestSellers = useMemo(() => {
+    return [...PRODUCTS].sort((a, b) => b.reviewsCount - a.reviewsCount);
+  }, []);
+
+  const dermocareProducts = useMemo(() => {
+    return PRODUCTS.filter((p) => p.category === 'dermocosmeticos' || p.category === 'cuidados');
   }, []);
 
   const totalItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -107,7 +115,7 @@ export const App: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 pb-16 md:pb-0">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-20 md:bottom-6 right-6 z-50 bg-slate-900 text-white font-bold text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 border border-slate-700">
+        <div className="fixed bottom-20 md:bottom-6 right-6 z-50 bg-slate-900 text-white font-bold text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 border border-slate-700 animate-in fade-in slide-in-from-bottom-2">
           <CheckCircle className="w-4 h-4 text-emerald-400" />
           <span>{toastMessage}</span>
         </div>
@@ -128,7 +136,7 @@ export const App: React.FC = () => {
         onSelectCategory={setSelectedCategory}
       />
 
-      {/* Hero Banner Slider */}
+      {/* Hero Banner Slider & Quick Access */}
       {selectedCategory === 'todos' && !searchQuery && (
         <>
           <HeroSlider
@@ -143,232 +151,210 @@ export const App: React.FC = () => {
         </>
       )}
 
-      {/* Featured Deals Carousel/Section (6 on desktop, 3 on mobile) */}
-      {selectedCategory === 'todos' && !searchQuery && (
-        <section className="max-w-7xl mx-auto px-4 py-3 sm:py-5 w-full">
-          <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs mb-4 sm:mb-6">
-            <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-100">
+      {/* Main Content Area */}
+      <main className="max-w-7xl mx-auto px-4 py-3 sm:py-5 flex-1 w-full space-y-6 sm:space-y-8">
+        {/* If user is browsing home (todos and no search) show Carousels with Drogasil Arrows */}
+        {selectedCategory === 'todos' && !searchQuery ? (
+          <>
+            {/* CAROUSEL 1: Esquenta Black Friday com até 70% (with ← and → arrows) */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+              <ProductCarousel
+                title="Esquenta Black Friday com até 70%"
+                subtitle={`Descontos imperdíveis com entrega rápida em ${selectedCity} e Grande Vitória`}
+                badge="Black Friday"
+                products={blackFridayDeals}
+                onAddToCart={handleAddToCart}
+                cartItems={cartItems}
+                onViewAll={() => setSelectedCategory('ofertas')}
+              />
+            </div>
+
+            {/* CAROUSEL 2: Mais Vendidos da Farmácia (with ← and → arrows) */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+              <ProductCarousel
+                title="Mais Vendidos da VivaBem"
+                subtitle="Os produtos favoritos das famílias capixabas"
+                products={bestSellers}
+                onAddToCart={handleAddToCart}
+                cartItems={cartItems}
+              />
+            </div>
+
+            {/* CAROUSEL 3: Dermocosméticos e Cuidados Diários (with ← and → arrows) */}
+            <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs">
+              <ProductCarousel
+                title="Dermocosméticos e Cuidados Pessoais"
+                subtitle="Proteção solar, hidratação profunda e higiene completa"
+                products={dermocareProducts}
+                onAddToCart={handleAddToCart}
+                cartItems={cartItems}
+                onViewAll={() => setSelectedCategory('dermocosmeticos')}
+              />
+            </div>
+
+            {/* Official Brand Logos / Badges */}
+            <div className="pt-2">
+              <div className="flex items-center justify-between mb-3 px-1">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  Marcas e Laboratórios Oficiais
+                </span>
+                <span className="text-xs text-slate-500 flex items-center gap-1 font-medium">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Procedência Garantida
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2">
+                {brands.map((b) => (
+                  <div
+                    key={b}
+                    className="bg-white border border-slate-200 rounded-lg p-2.5 text-center hover:border-slate-300 transition-colors cursor-pointer"
+                  >
+                    <span className="text-xs font-bold text-slate-700">{b}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : (
+          /* Filtered Search or Category View */
+          <div>
+            <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-200">
               <div>
-                <h2 className="text-base sm:text-xl font-black text-slate-900 tracking-tight">
-                  Ofertas em Destaque
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+                  {searchQuery
+                    ? `Resultados para "${searchQuery}"`
+                    : `Departamento: ${selectedCategory.toUpperCase()}`}
                 </h2>
-                <p className="text-[11px] sm:text-xs text-slate-500">
-                  Descontos especiais com entrega rápida em {selectedCity}
+                <p className="text-xs text-slate-500 mt-0.5">
+                  {filteredProducts.length} produtos disponíveis para entrega em <strong>{selectedCity} - ES</strong>
                 </p>
               </div>
 
-              {/* Countdown badge */}
-              <div className="flex items-center gap-1.5 bg-red-50 text-red-700 px-2.5 py-1 rounded-md border border-red-200 text-[11px] sm:text-xs font-bold">
-                <Clock className="w-3.5 h-3.5" />
-                <span>Por tempo limitado</span>
-              </div>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('todos');
+                }}
+                className="text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1 rounded"
+              >
+                Ver todos os departamentos
+              </button>
             </div>
 
-            {/* Product Cards Grid: 6 desktop, 3 mobile */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
-              {lightningDeals.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onAddToCart={handleAddToCart}
-                  isInCart={cartItems.some((i) => i.id === product.id)}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Main Catalog View */}
-      <main className="max-w-7xl mx-auto px-4 py-2 flex-1 w-full">
-        <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-200">
-          <div>
-            <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
-              {searchQuery
-                ? `Resultados para "${searchQuery}"`
-                : selectedCategory === 'todos'
-                ? 'Mais Vendidos da Farmácia'
-                : `Departamento: ${selectedCategory.toUpperCase()}`}
-            </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
-              {filteredProducts.length} produtos disponíveis para entrega em <strong>{selectedCity} - ES</strong>
-            </p>
-          </div>
-
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
-              className="text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1 rounded"
-            >
-              Limpar busca
-            </button>
-          )}
-        </div>
-
-        {/* Product Grid: 6 desktop, 3 mobile */}
-        {filteredProducts.length === 0 ? (
-          <div className="bg-white rounded-2xl p-10 text-center border border-slate-200 space-y-3 my-6">
-            <h3 className="font-bold text-slate-800 text-base">Nenhum produto encontrado</h3>
-            <p className="text-slate-500 text-xs max-w-sm mx-auto">
-              Não encontramos o item buscado no catálogo online. Você pode enviar sua receita diretamente para nosso WhatsApp!
-            </p>
-            <button
-              onClick={() => setIsPrescriptionOpen(true)}
-              className="mt-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-xs"
-            >
-              Consultar Farmacêutico no WhatsApp
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
-            {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onAddToCart={handleAddToCart}
-                isInCart={cartItems.some((i) => i.id === product.id)}
-              />
-            ))}
-          </div>
-        )}
-
-        {/* Brands Carousel (Clean Text Badges) */}
-        {selectedCategory === 'todos' && !searchQuery && (
-          <div className="mt-10 pt-6 border-t border-slate-200">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                Marcas e Laboratórios Oficiais
-              </span>
-              <span className="text-xs text-slate-500 flex items-center gap-1 font-medium">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Procedência Garantida
-              </span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2">
-              {brands.map((b) => (
-                <div
-                  key={b}
-                  className="bg-white border border-slate-200 rounded-lg p-2.5 text-center hover:border-slate-300 transition-colors cursor-pointer"
-                  onClick={() => setSearchQuery(b)}
+            {filteredProducts.length === 0 ? (
+              <div className="bg-white rounded-2xl p-10 text-center border border-slate-200 space-y-3 my-6">
+                <h3 className="font-bold text-slate-800 text-base">Nenhum produto encontrado</h3>
+                <p className="text-slate-500 text-xs max-w-sm mx-auto">
+                  Não encontramos o item buscado no catálogo online. Você pode enviar sua receita diretamente para nosso WhatsApp!
+                </p>
+                <button
+                  onClick={() => setIsPrescriptionOpen(true)}
+                  className="mt-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-xs"
                 >
-                  <div className="text-xs font-bold text-slate-800 truncate">{b}</div>
-                </div>
-              ))}
-            </div>
+                  Consultar Farmacêutico no WhatsApp
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
+                {filteredProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onAddToCart={handleAddToCart}
+                    isInCart={cartItems.some((i) => i.id === product.id)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         )}
-
-        {/* Institutional Banner: Farmácia Popular (Clean Drogasil Corporate Design) */}
-        <div className="mt-8 bg-emerald-900 rounded-2xl p-5 sm:p-7 text-white shadow-xs">
-          <div className="max-w-2xl space-y-2">
-            <h3 className="text-xl sm:text-2xl font-black leading-tight">
-              Programa Farmácia Popular no Espírito Santo
-            </h3>
-            <p className="text-emerald-100 text-xs sm:text-sm leading-relaxed">
-              Retire medicamentos para Hipertensão, Diabetes, Asma, Osteoporose e Anticoncepcionais com gratuidade pelo SUS em nossas lojas de Vitória, Vila Velha e Serra.
-            </p>
-            <div className="pt-2 flex flex-wrap gap-2.5">
-              <button
-                onClick={() => setIsPrescriptionOpen(true)}
-                className="bg-white hover:bg-slate-100 text-emerald-900 font-bold text-xs px-4 py-2.5 rounded-lg transition-colors"
-              >
-                Enviar Receita pelo WhatsApp
-              </button>
-              <button
-                onClick={() => setIsLocationOpen(true)}
-                className="bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2.5 rounded-lg border border-emerald-600/40 transition-colors"
-              >
-                Nossas Lojas no ES
-              </button>
-            </div>
-          </div>
-        </div>
       </main>
 
-      {/* Cart Drawer */}
+      {/* Modals and Drawers */}
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
-        cartItems={cartItems}
+        items={cartItems}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
         selectedCity={selectedCity}
+        onOpenPrescription={() => {
+          setIsCartOpen(false);
+          setIsPrescriptionOpen(true);
+        }}
       />
 
-      {/* Prescription Modal */}
       <PrescriptionModal
         isOpen={isPrescriptionOpen}
         onClose={() => setIsPrescriptionOpen(false)}
-        selectedCity={selectedCity}
       />
 
-      {/* Location Modal */}
       <LocationModal
         isOpen={isLocationOpen}
         onClose={() => setIsLocationOpen(false)}
         selectedCity={selectedCity}
         onSelectCity={setSelectedCity}
+        cities={ES_CITIES}
       />
 
-      {/* Auth Modal (Entrar ou Cadastrar) */}
       <AuthModal
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
       />
 
-      {/* Orders Tracking Modal */}
       <OrdersModal
         isOpen={isOrdersOpen}
         onClose={() => setIsOrdersOpen(false)}
       />
 
       {/* Footer */}
-      <Footer />
+      <Footer onOpenPrescription={() => setIsPrescriptionOpen(true)} />
 
-      {/* Mobile App-Style Bottom Navigation Bar (Drogasil Signature Mobile Feature) */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 px-3 py-2 flex items-center justify-around shadow-lg">
+      {/* Mobile Sticky Bottom Nav Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-4 py-2 z-40 flex items-center justify-around shadow-lg">
         <button
-          onClick={() => { setSelectedCategory('todos'); setSearchQuery(''); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-          className="flex flex-col items-center gap-0.5 text-slate-600 hover:text-red-600 focus:text-red-600"
+          onClick={() => {
+            setSelectedCategory('todos');
+            setSearchQuery('');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="flex flex-col items-center text-red-600 font-bold text-[10px]"
         >
           <Home className="w-5 h-5" />
-          <span className="text-[10px] font-semibold">Início</span>
+          <span>Início</span>
         </button>
 
         <button
-          onClick={() => {
-            const searchInput = document.querySelector('input[type="text"]') as HTMLInputElement;
-            if (searchInput) searchInput.focus();
-          }}
-          className="flex flex-col items-center gap-0.5 text-slate-600 hover:text-red-600"
+          onClick={() => setSelectedCategory('ofertas')}
+          className="flex flex-col items-center text-slate-600 hover:text-red-600 font-bold text-[10px]"
         >
-          <Search className="w-5 h-5" />
-          <span className="text-[10px] font-semibold">Buscar</span>
+          <Grid className="w-5 h-5" />
+          <span>Ofertas</span>
         </button>
 
         <button
           onClick={() => setIsPrescriptionOpen(true)}
-          className="flex flex-col items-center gap-0.5 text-emerald-800 hover:text-emerald-900"
+          className="flex flex-col items-center text-emerald-700 font-bold text-[10px]"
         >
-          <FileText className="w-5 h-5 text-emerald-700" />
-          <span className="text-[10px] font-bold">Receita</span>
+          <PhoneCall className="w-5 h-5" />
+          <span>WhatsApp</span>
         </button>
 
         <button
           onClick={() => setIsCartOpen(true)}
-          className="flex flex-col items-center gap-0.5 text-slate-600 hover:text-red-600 relative"
+          className="flex flex-col items-center text-slate-700 relative font-bold text-[10px]"
         >
-          <div className="relative">
-            <ShoppingCart className="w-5 h-5" />
-            {totalItemsCount > 0 && (
-              <span className="absolute -top-1.5 -right-2 bg-red-600 text-white font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
-                {totalItemsCount}
-              </span>
-            )}
-          </div>
-          <span className="text-[10px] font-semibold">Cesta</span>
+          <ShoppingCart className="w-5 h-5" />
+          {totalItemsCount > 0 && (
+            <span className="absolute -top-1 -right-2 bg-red-600 text-white rounded-full text-[9px] w-4 h-4 flex items-center justify-center font-bold">
+              {totalItemsCount}
+            </span>
+          )}
+          <span>Cesta</span>
         </button>
       </div>
     </div>
   );
 };
+
 export default App;
+
