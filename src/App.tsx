@@ -3,7 +3,6 @@ import { PRODUCTS, ES_CITIES } from './data/products';
 import { Product, CartItem } from './types';
 import { Navbar } from './components/Navbar';
 import { HeroSlider } from './components/HeroSlider';
-import { CategoryCircles } from './components/CategoryCircles';
 import { ProductCard } from './components/ProductCard';
 import { CartDrawer } from './components/CartDrawer';
 import { PrescriptionModal } from './components/PrescriptionModal';
@@ -83,7 +82,7 @@ export const App: React.FC = () => {
   }, [searchQuery, selectedCategory]);
 
   const lightningDeals = useMemo(() => {
-    return PRODUCTS.filter((p) => p.discountPercentage && p.discountPercentage >= 25).slice(0, 4);
+    return PRODUCTS.filter((p) => p.discountPercentage && p.discountPercentage >= 20).slice(0, 6);
   }, []);
 
   const totalItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -122,7 +121,7 @@ export const App: React.FC = () => {
         onSelectCategory={setSelectedCategory}
       />
 
-      {/* Hero Banner Slider (Clean, No Emojis, No Floating Tags) */}
+      {/* Hero Banner Slider */}
       {selectedCategory === 'todos' && !searchQuery && (
         <HeroSlider
           onOpenPrescription={() => setIsPrescriptionOpen(true)}
@@ -130,38 +129,29 @@ export const App: React.FC = () => {
         />
       )}
 
-      {/* Drogasil Visual Navigation: Compre por Categoria (Circles) */}
-      {!searchQuery && (
-        <CategoryCircles
-          selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
-          onOpenPrescription={() => setIsPrescriptionOpen(true)}
-        />
-      )}
-
-      {/* Featured Deals Carousel/Section */}
+      {/* Featured Deals Carousel/Section (6 on desktop, 3 on mobile) */}
       {selectedCategory === 'todos' && !searchQuery && (
-        <section className="max-w-7xl mx-auto px-4 py-2 sm:py-4 w-full">
-          <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-xs mb-6">
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
+        <section className="max-w-7xl mx-auto px-4 py-3 sm:py-5 w-full">
+          <div className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 border border-slate-200 shadow-xs mb-4 sm:mb-6">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-100">
               <div>
-                <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
+                <h2 className="text-base sm:text-xl font-black text-slate-900 tracking-tight">
                   Ofertas em Destaque
                 </h2>
-                <p className="text-xs text-slate-500">
+                <p className="text-[11px] sm:text-xs text-slate-500">
                   Descontos especiais com entrega rápida em {selectedCity}
                 </p>
               </div>
 
-              {/* Countdown badge (Drogasil Clean Style) */}
-              <div className="flex items-center gap-2 bg-red-50 text-red-700 px-3 py-1 rounded-md border border-red-200 text-xs font-bold">
+              {/* Countdown badge */}
+              <div className="flex items-center gap-1.5 bg-red-50 text-red-700 px-2.5 py-1 rounded-md border border-red-200 text-[11px] sm:text-xs font-bold">
                 <Clock className="w-3.5 h-3.5" />
-                <span>Ofertas válidas por tempo limitado</span>
+                <span>Por tempo limitado</span>
               </div>
             </div>
 
-            {/* Product Cards Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            {/* Product Cards Grid: 6 desktop, 3 mobile */}
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
               {lightningDeals.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -201,7 +191,7 @@ export const App: React.FC = () => {
           )}
         </div>
 
-        {/* Product Grid */}
+        {/* Product Grid: 6 desktop, 3 mobile */}
         {filteredProducts.length === 0 ? (
           <div className="bg-white rounded-2xl p-10 text-center border border-slate-200 space-y-3 my-6">
             <h3 className="font-bold text-slate-800 text-base">Nenhum produto encontrado</h3>
@@ -216,7 +206,7 @@ export const App: React.FC = () => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
